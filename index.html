@@ -316,22 +316,16 @@
       color: #0a0a0f;
     }
 
-    /* Type filter buttons – colors match event types in table */
-    .filter-btn.type-toggle[data-type="zkf"].active {
+    /* Type filter buttons – iridescent additive style for all categories */
+    .filter-btn.type-toggle.active {
       position: relative;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.75), transparent 65%),
-        linear-gradient(120deg, rgba(176, 255, 240, 0.08), rgba(255, 204, 255, 0.18)),
-        rgba(13, 148, 136, 0.85);
-      border-color: rgba(176, 255, 240, 0.8);
-      color: #f9fafb;
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, 0.65),
-        0 0 14px rgba(190, 255, 243, 0.6);
       overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.5),
+        0 0 12px currentColor;
     }
 
-    .filter-btn.type-toggle[data-type="zkf"].active::after {
+    .filter-btn.type-toggle.active::after {
       content: '';
       position: absolute;
       inset: -40%;
@@ -344,15 +338,15 @@
           rgba(255, 255, 255, 0.3) 65%,
           transparent 100%
         );
-      opacity: 0.0;
+      opacity: 0;
       mix-blend-mode: screen;
       pointer-events: none;
-      animation: zkfButtonSweep 5s ease-in-out infinite;
+      animation: typeToggleShimmer 5s ease-in-out infinite;
     }
 
-    @keyframes zkfButtonSweep {
+    @keyframes typeToggleShimmer {
       0% {
-        opacity: 0.0;
+        opacity: 0;
         transform: translateX(-80%);
       }
       18% {
@@ -360,48 +354,85 @@
         transform: translateX(-10%);
       }
       35% {
-        opacity: 0.0;
+        opacity: 0;
         transform: translateX(40%);
       }
       100% {
-        opacity: 0.0;
+        opacity: 0;
         transform: translateX(80%);
       }
     }
-    .filter-btn.type-toggle[data-type="workshop"].active {
-      background: var(--color-workshop);
-      border-color: var(--color-workshop);
-      color: #fff;
-    }
-    .filter-btn.type-toggle[data-type="excursion"].active {
-      background: var(--color-excursion);
-      border-color: var(--color-excursion);
-      color: #fff;
-    }
-    .filter-btn.type-toggle[data-type="symposium"].active {
-      background: var(--color-soiree);
-      border-color: var(--color-soiree);
-      color: #fff;
-    }
-    .filter-btn.type-toggle[data-type="gamejam"].active {
-      background: var(--color-gamejam);
-      border-color: var(--color-gamejam);
-      color: #fff;
-    }
-    .filter-btn.type-toggle[data-type="deadline"].active {
-      background: var(--color-deadline);
-      border-color: var(--color-deadline);
-      color: #fff;
-    }
-    .filter-btn.type-toggle[data-type="holiday"].active {
-      background: var(--color-holiday);
-      border-color: var(--color-holiday);
-      color: #0a0a0f;
-    }
+
     .filter-btn.type-toggle[data-type="introduction"].active {
-      background: var(--color-introduction);
-      border-color: var(--color-introduction);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(200, 200, 255, 0.2)),
+        var(--color-introduction);
+      border-color: rgba(220, 218, 255, 0.9);
       color: #fff;
+    }
+
+    .filter-btn.type-toggle[data-type="zkf"].active {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.75), transparent 65%),
+        linear-gradient(120deg, rgba(176, 255, 240, 0.08), rgba(255, 204, 255, 0.18)),
+        var(--color-zkf);
+      border-color: rgba(176, 255, 240, 0.8);
+      color: #f9fafb;
+    }
+
+    .filter-btn.type-toggle[data-type="workshop"].active {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(180, 255, 200, 0.2)),
+        var(--color-workshop);
+      border-color: rgba(200, 255, 220, 0.85);
+      color: #fff;
+    }
+
+    .filter-btn.type-toggle[data-type="excursion"].active {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(180, 245, 255, 0.2)),
+        var(--color-excursion);
+      border-color: rgba(200, 255, 255, 0.85);
+      color: #fff;
+    }
+
+    .filter-btn.type-toggle[data-type="symposium"].active {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(230, 210, 255, 0.2)),
+        var(--color-soiree);
+      border-color: rgba(235, 220, 255, 0.85);
+      color: #fff;
+    }
+
+    .filter-btn.type-toggle[data-type="gamejam"].active {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(180, 255, 245, 0.2)),
+        var(--color-gamejam);
+      border-color: rgba(200, 255, 248, 0.85);
+      color: #fff;
+    }
+
+    .filter-btn.type-toggle[data-type="deadline"].active {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.7), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 200, 200, 0.2)),
+        var(--color-deadline);
+      border-color: rgba(255, 220, 220, 0.85);
+      color: #fff;
+    }
+
+    .filter-btn.type-toggle[data-type="holiday"].active {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.75), transparent 60%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 245, 200, 0.25)),
+        var(--color-holiday);
+      border-color: rgba(255, 250, 220, 0.9);
+      color: #0a0a0f;
     }
     .filter-btn.type-toggle:not(.active) {
       background: rgba(255, 255, 255, 0.4);
