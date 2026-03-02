@@ -575,6 +575,8 @@
       --cell-delay: 0s;
       --cell-duration: 14s;
       --cell-phase: 0deg;
+      --cell-cx: 50%;
+      --cell-cy: 50%;
     }
 
     .event-cell-inner {
@@ -587,50 +589,50 @@
       overflow: visible;
     }
 
-    /* Iridescent: category as main, pearl/other colours around but less */
+    /* Iridescent: category as main, pearl colours secondary. Origin offset per cell to avoid radial-centric look. */
     .event-cell.workshop {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(34, 197, 94, 0.4) 0%, rgba(200, 255, 220, 0.35) 25%, rgba(34, 197, 94, 0.35) 50%, rgba(220, 255, 235, 0.3) 75%, rgba(34, 197, 94, 0.4) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(34, 197, 94, 0.4) 0%, rgba(200, 255, 220, 0.35) 25%, rgba(34, 197, 94, 0.35) 50%, rgba(220, 255, 235, 0.3) 75%, rgba(34, 197, 94, 0.4) 100%);
       color: #14532d;
     }
     .event-cell.deadline {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(239, 68, 68, 0.4) 0%, rgba(255, 220, 220, 0.3) 25%, rgba(239, 68, 68, 0.35) 50%, rgba(255, 235, 230, 0.28) 75%, rgba(239, 68, 68, 0.4) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(239, 68, 68, 0.4) 0%, rgba(255, 220, 220, 0.3) 25%, rgba(239, 68, 68, 0.35) 50%, rgba(255, 235, 230, 0.28) 75%, rgba(239, 68, 68, 0.4) 100%);
       color: #991b1b;
     }
     .event-cell.excursion {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(6, 182, 212, 0.4) 0%, rgba(200, 245, 255, 0.35) 25%, rgba(6, 182, 212, 0.35) 50%, rgba(220, 255, 255, 0.3) 75%, rgba(6, 182, 212, 0.4) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(6, 182, 212, 0.4) 0%, rgba(200, 245, 255, 0.35) 25%, rgba(6, 182, 212, 0.35) 50%, rgba(220, 255, 255, 0.3) 75%, rgba(6, 182, 212, 0.4) 100%);
       color: #0e7490;
     }
     .event-cell.symposium,
     .event-cell.soiree {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(168, 85, 247, 0.4) 0%, rgba(235, 220, 255, 0.35) 25%, rgba(168, 85, 247, 0.35) 50%, rgba(245, 230, 255, 0.3) 75%, rgba(168, 85, 247, 0.4) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(168, 85, 247, 0.4) 0%, rgba(235, 220, 255, 0.35) 25%, rgba(168, 85, 247, 0.35) 50%, rgba(245, 230, 255, 0.3) 75%, rgba(168, 85, 247, 0.4) 100%);
       color: #581c87;
     }
     .event-cell.holiday {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(251, 191, 36, 0.5) 0%, rgba(255, 250, 220, 0.4) 25%, rgba(251, 191, 36, 0.45) 50%, rgba(255, 245, 210, 0.38) 75%, rgba(251, 191, 36, 0.5) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(251, 191, 36, 0.5) 0%, rgba(255, 250, 220, 0.4) 25%, rgba(251, 191, 36, 0.45) 50%, rgba(255, 245, 210, 0.38) 75%, rgba(251, 191, 36, 0.5) 100%);
       color: #713f12;
     }
     .event-cell.exam {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(249, 115, 22, 0.4) 0%, rgba(255, 235, 220, 0.3) 25%, rgba(249, 115, 22, 0.35) 50%, rgba(255, 240, 225, 0.28) 75%, rgba(249, 115, 22, 0.4) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(249, 115, 22, 0.4) 0%, rgba(255, 235, 220, 0.3) 25%, rgba(249, 115, 22, 0.35) 50%, rgba(255, 240, 225, 0.28) 75%, rgba(249, 115, 22, 0.4) 100%);
       color: #9a3412;
     }
     .event-cell.gamejam {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(20, 184, 166, 0.4) 0%, rgba(200, 255, 248, 0.35) 25%, rgba(20, 184, 166, 0.35) 50%, rgba(220, 255, 245, 0.3) 75%, rgba(20, 184, 166, 0.4) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(20, 184, 166, 0.4) 0%, rgba(200, 255, 248, 0.35) 25%, rgba(20, 184, 166, 0.35) 50%, rgba(220, 255, 245, 0.3) 75%, rgba(20, 184, 166, 0.4) 100%);
       color: #0f766e;
     }
     .event-cell.zkf {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(13, 148, 136, 0.4) 0%, rgba(180, 255, 245, 0.35) 25%, rgba(13, 148, 136, 0.35) 50%, rgba(200, 255, 235, 0.3) 75%, rgba(13, 148, 136, 0.4) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(13, 148, 136, 0.4) 0%, rgba(180, 255, 245, 0.35) 25%, rgba(13, 148, 136, 0.35) 50%, rgba(200, 255, 235, 0.3) 75%, rgba(13, 148, 136, 0.4) 100%);
       color: #064e3b;
     }
     .event-cell.introduction {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(99, 102, 241, 0.35) 0%, rgba(200, 220, 255, 0.32) 25%, rgba(99, 102, 241, 0.32) 50%, rgba(245, 220, 255, 0.28) 75%, rgba(99, 102, 241, 0.35) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(99, 102, 241, 0.35) 0%, rgba(200, 220, 255, 0.32) 25%, rgba(99, 102, 241, 0.32) 50%, rgba(245, 220, 255, 0.28) 75%, rgba(99, 102, 241, 0.35) 100%);
       color: #3730a3;
     }
     .event-cell.lecture {
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(120, 120, 120, 0.35) 0%, rgba(240, 240, 245, 0.3) 25%, rgba(120, 120, 120, 0.3) 50%, rgba(250, 248, 252, 0.28) 75%, rgba(120, 120, 120, 0.35) 100%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(120, 120, 120, 0.35) 0%, rgba(240, 240, 245, 0.3) 25%, rgba(120, 120, 120, 0.3) 50%, rgba(250, 248, 252, 0.28) 75%, rgba(120, 120, 120, 0.35) 100%);
       color: var(--color-text);
     }
 
-    /* Additive overlay – other pearl colours on top, screen blend */
+    /* Additive overlay – pearl colours, origin offset so no single bright center */
     .event-cell.workshop::before,
     .event-cell.deadline::before,
     .event-cell.excursion::before,
@@ -646,7 +648,7 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(255,255,255,0.12), #a0e0ff 22%, #f0d8ff 45%, #ffe8c8 68%, #c8f5e0 90%);
+      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(255,255,255,0.12), #a0e0ff 22%, #f0d8ff 45%, #ffe8c8 68%, #c8f5e0 90%);
       opacity: 0.4;
       mix-blend-mode: screen;
       pointer-events: none;
@@ -1241,7 +1243,9 @@
           const delay = (rowIdx * 1.7 + colIdx * 2.3) % 12;
           const duration = 10 + (rowIdx + colIdx * 2) % 6;
           const phase = (rowIdx * 73 + colIdx * 47) % 360;
-          return `--cell-delay: ${delay.toFixed(1)}s; --cell-duration: ${duration}s; --cell-phase: ${phase}deg`;
+          const cx = 25 + (rowIdx * 17 + colIdx * 23) % 50;
+          const cy = 20 + (rowIdx * 13 + colIdx * 19) % 60;
+          return `--cell-delay: ${delay.toFixed(1)}s; --cell-duration: ${duration}s; --cell-phase: ${phase}deg; --cell-cx: ${cx}%; --cell-cy: ${cy}%`;
         }
 
         if (isFullRowEvent && contentForRow) {
