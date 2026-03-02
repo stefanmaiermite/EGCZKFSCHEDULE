@@ -149,8 +149,8 @@
       background-clip: text;
       color: transparent;
       text-shadow:
-        0 0 10px rgba(255, 255, 255, 0.55),
-        0 0 20px rgba(174, 255, 244, 0.45);
+        0 0 6px rgba(255, 255, 255, 0.22),
+        0 0 12px rgba(174, 255, 244, 0.18);
       mix-blend-mode: screen;
       animation: iridescentShift 9s ease-in-out infinite alternate;
     }
@@ -188,8 +188,8 @@
       background-clip: text;
       color: transparent;
       text-shadow:
-        0 0 10px rgba(255, 255, 255, 0.45),
-        0 0 16px rgba(190, 255, 243, 0.4);
+        0 0 6px rgba(255, 255, 255, 0.2),
+        0 0 12px rgba(190, 255, 243, 0.16);
       mix-blend-mode: screen;
       animation: iridescentShift 11s ease-in-out infinite alternate-reverse;
     }
@@ -197,15 +197,15 @@
     @keyframes iridescentShift {
       0% {
         background-position: 0% 35%;
-        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.25));
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.12));
       }
       50% {
         background-position: 100% 65%;
-        filter: drop-shadow(0 0 10px rgba(200, 255, 245, 0.6));
+        filter: drop-shadow(0 0 6px rgba(200, 255, 245, 0.25));
       }
       100% {
         background-position: 30% 0%;
-        filter: drop-shadow(0 0 6px rgba(255, 240, 220, 0.5));
+        filter: drop-shadow(0 0 4px rgba(255, 240, 220, 0.18));
       }
     }
 
@@ -330,9 +330,9 @@
         linear-gradient(
           110deg,
           transparent 0%,
-          rgba(255, 255, 255, 0.4) 35%,
-          rgba(255, 255, 255, 0.9) 50%,
-          rgba(255, 255, 255, 0.3) 65%,
+          rgba(255, 255, 255, 0.35) 35%,
+          rgba(255, 255, 255, 0.7) 50%,
+          rgba(255, 255, 255, 0.25) 65%,
           transparent 100%
         );
       opacity: 0;
@@ -347,7 +347,7 @@
         transform: translateX(-80%);
       }
       18% {
-        opacity: 0.7;
+        opacity: 0.28;
         transform: translateX(-10%);
       }
       35% {
@@ -360,48 +360,49 @@
       }
     }
 
-    /* Shared pearlescent base – color applied only as tint overlay */
-    .filter-btn.type-toggle[data-type="introduction"].active,
-    .filter-btn.type-toggle[data-type="zkf"].active,
-    .filter-btn.type-toggle[data-type="workshop"].active,
-    .filter-btn.type-toggle[data-type="excursion"].active,
-    .filter-btn.type-toggle[data-type="symposium"].active,
-    .filter-btn.type-toggle[data-type="gamejam"].active,
-    .filter-btn.type-toggle[data-type="deadline"].active,
+    /* Original category colours + faint iridescent sheen (shimmer opacity toned down) */
+    .filter-btn.type-toggle[data-type="introduction"].active {
+      background: var(--color-introduction);
+      border-color: var(--color-introduction);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="zkf"].active {
+      background: var(--color-zkf);
+      border-color: var(--color-zkf);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="workshop"].active {
+      background: var(--color-workshop);
+      border-color: var(--color-workshop);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="excursion"].active {
+      background: var(--color-excursion);
+      border-color: var(--color-excursion);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="symposium"].active {
+      background: var(--color-soiree);
+      border-color: var(--color-soiree);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="gamejam"].active {
+      background: var(--color-gamejam);
+      border-color: var(--color-gamejam);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="deadline"].active {
+      background: var(--color-deadline);
+      border-color: var(--color-deadline);
+      color: #fff;
+    }
     .filter-btn.type-toggle[data-type="holiday"].active {
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 45%),
-        conic-gradient(from 180deg at 50% 50%, rgba(255, 255, 255, 0.9), #c8f0ff, #f0e0ff, #fff0d8, #d8ffe8, rgba(255, 255, 255, 0.85));
-      background-blend-mode: overlay, normal;
-      border-color: rgba(255, 255, 255, 0.7);
+      background: var(--color-holiday);
+      border-color: var(--color-holiday);
       color: #0a0a0f;
     }
 
-    .filter-btn.type-toggle[data-type="introduction"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(99, 102, 241, 0.35);
-    }
-    .filter-btn.type-toggle[data-type="zkf"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(13, 148, 136, 0.35);
-    }
-    .filter-btn.type-toggle[data-type="workshop"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(34, 197, 94, 0.35);
-    }
-    .filter-btn.type-toggle[data-type="excursion"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(6, 182, 212, 0.35);
-    }
-    .filter-btn.type-toggle[data-type="symposium"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(168, 85, 247, 0.35);
-    }
-    .filter-btn.type-toggle[data-type="gamejam"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(20, 184, 166, 0.35);
-    }
-    .filter-btn.type-toggle[data-type="deadline"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(239, 68, 68, 0.35);
-    }
-    .filter-btn.type-toggle[data-type="holiday"].active {
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.5), 0 0 14px rgba(251, 191, 36, 0.4);
-    }
-
+    /* Faint iridescent tint overlay – very low opacity so category colour stays clear */
     .filter-btn.type-toggle[data-type="introduction"].active::before,
     .filter-btn.type-toggle[data-type="zkf"].active::before,
     .filter-btn.type-toggle[data-type="workshop"].active::before,
@@ -414,20 +415,11 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(circle at 30% 30%, var(--type-tint, transparent) 0%, transparent 70%);
-      opacity: 0.45;
-      mix-blend-mode: multiply;
+      background: conic-gradient(from 180deg at 50% 50%, rgba(255,255,255,0.5), #c8e8ff 25%, #f0e0ff 50%, #fff0d8 75%, #d8f5e8);
+      opacity: 0.14;
+      mix-blend-mode: overlay;
       pointer-events: none;
     }
-
-    .filter-btn.type-toggle[data-type="introduction"].active::before { --type-tint: rgba(99, 102, 241, 0.5); }
-    .filter-btn.type-toggle[data-type="zkf"].active::before { --type-tint: rgba(13, 148, 136, 0.5); }
-    .filter-btn.type-toggle[data-type="workshop"].active::before { --type-tint: rgba(34, 197, 94, 0.5); }
-    .filter-btn.type-toggle[data-type="excursion"].active::before { --type-tint: rgba(6, 182, 212, 0.5); }
-    .filter-btn.type-toggle[data-type="symposium"].active::before { --type-tint: rgba(168, 85, 247, 0.5); }
-    .filter-btn.type-toggle[data-type="gamejam"].active::before { --type-tint: rgba(20, 184, 166, 0.5); }
-    .filter-btn.type-toggle[data-type="deadline"].active::before { --type-tint: rgba(239, 68, 68, 0.5); }
-    .filter-btn.type-toggle[data-type="holiday"].active::before { --type-tint: rgba(251, 191, 36, 0.45); }
     .filter-btn.type-toggle:not(.active) {
       background: rgba(255, 255, 255, 0.4);
       border-color: var(--color-border);
@@ -594,50 +586,50 @@
       overflow: visible;
     }
 
-    /* Iridescent base + color tint for all typed event cells */
-    .event-cell.workshop,
-    .event-cell.deadline,
-    .event-cell.excursion,
+    /* Original category colours – easy to separate visually */
+    .event-cell.workshop {
+      background: rgba(34, 197, 94, 0.25);
+      color: #14532d;
+    }
+    .event-cell.deadline {
+      background: rgba(239, 68, 68, 0.25);
+      color: #991b1b;
+    }
+    .event-cell.excursion {
+      background: rgba(6, 182, 212, 0.25);
+      color: #0e7490;
+    }
     .event-cell.symposium,
-    .event-cell.holiday,
-    .event-cell.exam,
-    .event-cell.soiree,
-    .event-cell.gamejam,
-    .event-cell.zkf,
-    .event-cell.introduction,
+    .event-cell.soiree {
+      background: rgba(168, 85, 247, 0.25);
+      color: #581c87;
+    }
+    .event-cell.holiday {
+      background: rgba(251, 191, 36, 0.35);
+      color: #713f12;
+    }
+    .event-cell.exam {
+      background: rgba(249, 115, 22, 0.25);
+      color: #9a3412;
+    }
+    .event-cell.gamejam {
+      background: rgba(20, 184, 166, 0.25);
+      color: #0f766e;
+    }
+    .event-cell.zkf {
+      background: rgba(13, 148, 136, 0.25);
+      color: #064e3b;
+    }
+    .event-cell.introduction {
+      background: rgba(99, 102, 241, 0.2);
+      color: #3730a3;
+    }
     .event-cell.lecture {
-      background:
-        linear-gradient(135deg, rgba(255,255,255,0.08), transparent 50%),
-        conic-gradient(from var(--cell-phase) at 50% 50%, rgba(255,255,255,0.85), #c8f0ff 20%, #f0e0ff 40%, #fff0d8 60%, #d8ffe8 80%, rgba(255,255,255,0.8));
-      background-blend-mode: overlay, normal;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--color-text);
     }
 
-    .event-cell.workshop { color: #14532d; }
-    .event-cell.workshop::before { --event-tint: rgba(34, 197, 94, 0.28); }
-    .event-cell.deadline { color: #991b1b; }
-    .event-cell.deadline::before { --event-tint: rgba(239, 68, 68, 0.28); }
-    .event-cell.excursion { color: #0e7490; }
-    .event-cell.excursion::before { --event-tint: rgba(6, 182, 212, 0.28); }
-    .event-cell.symposium,
-    .event-cell.soiree { color: #581c87; }
-    .event-cell.symposium::before,
-    .event-cell.soiree::before { --event-tint: rgba(168, 85, 247, 0.28); }
-    .event-cell.holiday { color: #713f12; }
-    .event-cell.holiday::before { --event-tint: rgba(251, 191, 36, 0.32); }
-    .event-cell.exam { color: #9a3412; }
-    .event-cell.exam::before { --event-tint: rgba(249, 115, 22, 0.28); }
-    .event-cell.gamejam { color: #0f766e; }
-    .event-cell.gamejam::before { --event-tint: rgba(20, 184, 166, 0.28); }
-    .event-cell.zkf { color: #064e3b; }
-    .event-cell.zkf::before { --event-tint: rgba(13, 148, 136, 0.28); }
-    .event-cell.introduction { color: #3730a3; }
-    .event-cell.introduction::before { --event-tint: rgba(99, 102, 241, 0.25); }
-    .event-cell.lecture { color: var(--color-text); }
-    .event-cell.lecture::before { --event-tint: rgba(128, 128, 128, 0.15); }
-
-    /* Color tint overlay (additive-style, color only tints the pearl) */
+    /* Faint iridescent tint overlay – very low opacity, category colour stays dominant */
     .event-cell.workshop::before,
     .event-cell.deadline::before,
     .event-cell.excursion::before,
@@ -653,12 +645,13 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: radial-gradient(ellipse 80% 70% at 30% 30%, var(--event-tint, transparent) 0%, transparent 65%);
-      mix-blend-mode: multiply;
+      background: conic-gradient(from var(--cell-phase, 0deg) at 50% 50%, rgba(255,255,255,0.4), #c8e8ff 22%, #f0e0ff 45%, #fff0d8 68%, #d8f5e8);
+      opacity: 0.1;
+      mix-blend-mode: overlay;
       pointer-events: none;
     }
 
-    /* Randomized iridescent shimmer – uses --cell-delay and --cell-duration from JS */
+    /* Randomized iridescent shimmer – faint, uses --cell-delay and --cell-duration from JS */
     .event-cell.workshop::after,
     .event-cell.deadline::after,
     .event-cell.excursion::after,
@@ -674,9 +667,9 @@
       position: absolute;
       inset: -50%;
       background:
-        conic-gradient(from 0deg, rgba(255,255,255,0.7), #b8e8ff, #f8e0ff, #ffe8c8, #c8f5e0, rgba(255,255,255,0.6));
+        conic-gradient(from 0deg, rgba(255,255,255,0.5), #b8e8ff, #f8e0ff, #ffe8c8, #c8f5e0, rgba(255,255,255,0.45));
       opacity: 0;
-      mix-blend-mode: color-dodge;
+      mix-blend-mode: soft-light;
       pointer-events: none;
       animation: cellIridescent var(--cell-duration, 14s) ease-in-out infinite;
       animation-delay: var(--cell-delay, 0s);
@@ -688,19 +681,19 @@
         transform: translate(0, 0) rotate(0deg) scale(1.2);
       }
       15% {
-        opacity: 0.5;
+        opacity: 0.22;
         transform: translate(15%, -8%) rotate(12deg) scale(1.3);
       }
       35% {
-        opacity: 0.2;
+        opacity: 0.08;
         transform: translate(-10%, 5%) rotate(-5deg) scale(1.25);
       }
       55% {
-        opacity: 0.45;
+        opacity: 0.2;
         transform: translate(-25%, -5%) rotate(8deg) scale(1.35);
       }
       75% {
-        opacity: 0.15;
+        opacity: 0.06;
         transform: translate(10%, 10%) rotate(-8deg) scale(1.2);
       }
     }
