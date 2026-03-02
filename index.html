@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experimental Game Cultures — Schedule SS2026</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --color-bg: #0a0a0f;
+      --color-surface: rgba(12, 12, 18, 0.92);
+      --color-surface-hover: rgba(20, 20, 30, 0.95);
+      --color-primary: #00ff88;
+      --color-secondary: #ff3366;
+      --color-accent: #7b61ff;
+      --color-text: #1a1a28;
+      --color-text-muted: #4a4a5c;
+      --color-border: rgba(0, 0, 0, 0.08);
+      
+      /* Event type colors - matching your sheet */
+      --color-workshop: #22c55e;
+      --color-deadline: #ef4444;
+      --color-excursion: #06b6d4;
+      --color-symposium: #06b6d4;
+      --color-holiday: #fbbf24;
+      --color-exam: #f97316;
+      --color-festival: #ec4899;
+      --color-soiree: #a855f7;
+      --color-gamejam: #14b8a6;
+      --color-zkf: #0d9488;
+      --color-introduction: #6366f1;
+      
+      --font-display: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      --color-subtitle: #b84d6d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: #e8e6e4;
+      color: var(--color-text);
+      min-height: 100vh;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    /* ═══════════════════════════════════════════
+       VIDEO – full-width layer behind content, scrolls with page
+       ═══════════════════════════════════════════ */
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #e8e6e4;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .video-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      opacity: 1;
+      filter: saturate(0.85) contrast(1.05);
+    }
+
+    /* ═══════════════════════════════════════════
+       MAIN LAYOUT (on top of video)
+       ═══════════════════════════════════════════ */
+    .main-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════════ */
+    .header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-section .subtitle {
+      font-family: var(--font-display);
+      font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+      font-variant: small-caps;
+      letter-spacing: 0.25em;
+      color: var(--color-subtitle);
+      margin-bottom: 0.15rem;
+    }
+
+    .logo-section h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--color-subtitle);
+      margin-bottom: 0.25rem;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .logo-section .term {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--color-text-muted);
+    }
+
+    .status-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      border: 1px solid var(--color-border);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      animation: pulse 2s infinite;
+    }
+
+    .status-dot.error {
+      background: var(--color-secondary);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
+      50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+    }
+
+    /* ═══════════════════════════════════════════
+       FILTER CONTROLS
+       ═══════════════════════════════════════════ */
+    .filter-section {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .filter-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-text-muted);
+      margin-right: 0.5rem;
+      align-self: center;
+    }
+
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 0.9rem;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 2rem;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: #0a0a0f;
+    }
+
+    /* Type filter buttons – colors match event types in table */
+    .filter-btn.type-toggle[data-type="zkf"].active {
+      background: var(--color-zkf);
+      border-color: var(--color-zkf);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="workshop"].active {
+      background: var(--color-workshop);
+      border-color: var(--color-workshop);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="excursion"].active {
+      background: var(--color-excursion);
+      border-color: var(--color-excursion);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="symposium"].active {
+      background: var(--color-soiree);
+      border-color: var(--color-soiree);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="gamejam"].active {
+      background: var(--color-gamejam);
+      border-color: var(--color-gamejam);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="deadline"].active {
+      background: var(--color-deadline);
+      border-color: var(--color-deadline);
+      color: #fff;
+    }
+    .filter-btn.type-toggle[data-type="holiday"].active {
+      background: var(--color-holiday);
+      border-color: var(--color-holiday);
+      color: #0a0a0f;
+    }
+    .filter-btn.type-toggle[data-type="introduction"].active {
+      background: var(--color-introduction);
+      border-color: var(--color-introduction);
+      color: #fff;
+    }
+    .filter-btn.type-toggle:not(.active) {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: var(--color-border);
+      color: var(--color-text-muted);
+    }
+
+    .month-select {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.5rem 0.9rem;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+      cursor: pointer;
+      border-radius: 2rem;
+      min-width: 140px;
+    }
+
+    .month-select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+
+    /* ═══════════════════════════════════════════
+       SCHEDULE TABLE – fits viewport, no horizontal scroll
+       ═══════════════════════════════════════════ */
+    .schedule-wrapper {
+      margin-top: 1.5rem;
+      width: 100%;
+      overflow-x: hidden;
+      border-radius: 1.25rem;
+      overflow: hidden;
+    }
+
+    .schedule-table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+      border-radius: 1.25rem;
+    }
+
+    .schedule-table thead {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .schedule-table th {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 1rem;
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-text);
+      font-weight: 700;
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    .schedule-table th.time-col {
+      width: 28.67%;
+      text-align: center;
+    }
+
+    .schedule-table th .th-sub {
+      display: block;
+      font-size: 0.5rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: none;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .schedule-table th.date-col {
+      width: 14%;
+    }
+
+    .schedule-table thead tr:first-child th:first-child {
+      border-top-left-radius: 1.25rem;
+    }
+    .schedule-table thead tr:first-child th:last-child {
+      border-top-right-radius: 1.25rem;
+    }
+
+    .schedule-table tbody tr {
+      transition: all 0.2s ease;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .schedule-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .schedule-table td {
+      padding: 0.9rem 1rem;
+      vertical-align: top;
+      font-size: 0.8rem;
+      color: var(--color-text);
+      border-right: 1px solid var(--color-border);
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .schedule-table td:last-child {
+      border-right: none;
+    }
+
+    .schedule-table td:first-child {
+      width: 14%;
+    }
+
+    /* Date cell */
+    .date-cell {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    .date-day {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+      font-weight: 400;
+    }
+
+    /* Event cells – pill-like when single line, rounded rectangle when wrapping */
+    .event-cell {
+      position: relative;
+      padding: 0.6rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      overflow: visible;
+    }
+
+    .event-cell-inner {
+      display: block;
+      white-space: normal;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      overflow: visible;
+    }
+
+    .event-cell.workshop {
+      background: rgba(34, 197, 94, 0.25);
+      color: #14532d;
+    }
+
+    .event-cell.deadline {
+      background: rgba(239, 68, 68, 0.25);
+      color: #991b1b;
+    }
+
+    .event-cell.excursion {
+      background: rgba(6, 182, 212, 0.25);
+      color: #0e7490;
+    }
+
+    .event-cell.symposium {
+      background: rgba(168, 85, 247, 0.25);
+      color: #581c87;
+    }
+
+    .event-cell.holiday {
+      background: rgba(251, 191, 36, 0.35);
+      color: #713f12;
+    }
+
+    .event-cell.exam {
+      background: rgba(249, 115, 22, 0.25);
+      color: #9a3412;
+    }
+
+    .event-cell.soiree {
+      background: rgba(168, 85, 247, 0.25);
+      color: #581c87;
+    }
+
+    .event-cell.gamejam {
+      background: rgba(20, 184, 166, 0.25);
+      color: #0f766e;
+    }
+
+    .event-cell.lecture {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--color-text);
+    }
+
+    .event-cell.zkf {
+      background: rgba(13, 148, 136, 0.25);
+      color: #0f766e;
+    }
+
+    .event-cell.introduction {
+      background: rgba(99, 102, 241, 0.2);
+      color: #3730a3;
+    }
+
+    .event-cell a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 2px;
+    }
+
+    .event-cell a:hover {
+      color: #0a0a0f;
+    }
+
+    /* Full-width events (spanning multiple columns) */
+    .full-row-event {
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* Hidden rows */
+    .schedule-table tr.hidden {
+      display: none;
+    }
+
+    /* Past events – grey */
+    .schedule-table tr.past .event-cell,
+    .schedule-table tr.past .event-cell.workshop,
+    .schedule-table tr.past .event-cell.deadline,
+    .schedule-table tr.past .event-cell.excursion,
+    .schedule-table tr.past .event-cell.symposium,
+    .schedule-table tr.past .event-cell.holiday,
+    .schedule-table tr.past .event-cell.exam,
+    .schedule-table tr.past .event-cell.soiree,
+    .schedule-table tr.past .event-cell.gamejam,
+    .schedule-table tr.past .event-cell.lecture,
+    .schedule-table tr.past .event-cell.introduction,
+    .schedule-table tr.past .event-cell.zkf {
+      background: rgba(120, 120, 120, 0.2);
+      color: #4b5563;
+    }
+
+    .schedule-table tr.past .date-cell {
+      color: #6b7280;
+    }
+
+    .schedule-table tr.past .date-day {
+      color: #9ca3af;
+    }
+
+    /* Today highlight */
+    .schedule-table tr.today {
+      background: rgba(0, 255, 136, 0.05);
+    }
+
+    .schedule-table tr.today td:first-child {
+      position: relative;
+    }
+
+    .schedule-table tr.today td:first-child::before {
+      content: '→';
+      position: absolute;
+      left: 0.3rem;
+      color: var(--color-primary);
+      font-weight: bold;
+    }
+
+    /* ═══════════════════════════════════════════
+       LOADING & ERROR STATES
+       ═══════════════════════════════════════════ */
+    .loading-state,
+    .error-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--color-text-muted);
+      border-radius: 1.25rem;
+    }
+
+    .error-state button {
+      border-radius: 2rem;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--color-border);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error-state {
+      color: var(--color-secondary);
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ */
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.65rem;
+      color: var(--color-text-muted);
+    }
+
+    .footer a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .main-container {
+        padding: 1rem;
+      }
+      
+      .schedule-table th,
+      .schedule-table td {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.7rem;
+      }
+      
+      .schedule-table th.date-col {
+        width: 18%;
+      }
+      
+      .schedule-table th.time-col {
+        width: 27.33%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video (9:16 – scroll to see content below) -->
+  <div class="video-container">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="background.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <main class="main-container">
+    
+    <!-- Header -->
+    <header class="header">
+      <div class="header-top">
+        <div class="logo-section">
+          <p class="subtitle">experimental game cultures</p>
+          <h1>ZKF SCHEDULE</h1>
+          <p class="term">Sommer Term 2026 — University of Applied Arts Vienna</p>
+        </div>
+        <div class="status-box">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Live • Auto-updating</span>
+        </div>
+      </div>
+      
+      <!-- Filters -->
+      <div class="filter-section">
+        <span class="filter-label">Month:</span>
+        <select id="monthFilter" class="month-select" aria-label="Select month">
+          <option value="all">All</option>
+          <!-- Options filled by JavaScript from schedule data -->
+        </select>
+        
+        <span class="filter-label" style="margin-left: 1rem;">Type:</span>
+        <div id="typeFilterGroup" class="filter-group type-toggles">
+          <button type="button" class="filter-btn type-toggle" data-type="introduction" title="Show only introductions">Intro</button>
+          <button type="button" class="filter-btn type-toggle" data-type="zkf" title="Show only ZKF">ZKF</button>
+          <button type="button" class="filter-btn type-toggle" data-type="workshop" title="Show only hands-on">HANDS ON</button>
+          <button type="button" class="filter-btn type-toggle" data-type="excursion" title="Show only excursions">Excursion</button>
+          <button type="button" class="filter-btn type-toggle" data-type="symposium" title="Show only lectures">LECTURES</button>
+          <button type="button" class="filter-btn type-toggle" data-type="gamejam" title="Show only game jams">Game Jam</button>
+          <button type="button" class="filter-btn type-toggle" data-type="deadline" title="Show only deadlines">Deadline</button>
+          <button type="button" class="filter-btn type-toggle" data-type="holiday" title="Show only holidays">Holiday</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Schedule Table -->
+    <div class="schedule-wrapper">
+      <div id="loadingState" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>Loading schedule from Google Sheets...</p>
+      </div>
+      
+      <div id="errorState" class="error-state" style="display: none;">
+        <p>⚠️ Could not load schedule.</p>
+        <p style="font-size: 0.7rem; margin-top: 0.5rem; color: var(--color-text-muted);">
+          Make sure your Google Sheet is shared: <br>
+          Share → Anyone with the link → Viewer
+        </p>
+        <button onclick="loadSchedule()" style="margin-top: 1rem; padding: 0.5rem 1rem; cursor: pointer;">Retry</button>
+      </div>
+      
+      <table class="schedule-table" id="scheduleTable" style="display: none;">
+        <thead>
+          <tr>
+            <th class="date-col">Date</th>
+            <th class="time-col">10:00 – 12:00<br><span class="th-sub">Introduction</span></th>
+            <th class="time-col">13:00 – 15:00<br><span class="th-sub">ZKF Input &amp; Open Floor</span></th>
+            <th class="time-col">ab 15:00<br><span class="th-sub">Künstlerischer Einzelunterricht / Hands-on Workshops</span></th>
+          </tr>
+        </thead>
+        <tbody id="scheduleBody">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Last updated: <span id="lastUpdate">—</span></span>
+      <span>
+        <a href="https://www.dieangewandte.at/" target="_blank">University of Applied Arts Vienna</a>
+      </span>
+    </footer>
+    
+  </main>
+
+  <script>
+    // ═══════════════════════════════════════════════════════════════════════════
+    // CONFIGURATION - YOUR EGC SCHEDULE
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    const CONFIG = {
+      // ═══════════════════════════════════════════════════════════════════════
+      // OPTION A: Use Google Apps Script proxy (recommended - works everywhere)
+      // Follow the setup instructions below to create your own proxy
+      // ═══════════════════════════════════════════════════════════════════════
+      USE_APPS_SCRIPT: false,  // Set to true after you deploy the Apps Script
+      APPS_SCRIPT_URL: 'YOUR_APPS_SCRIPT_URL_HERE',
+      
+      // ═══════════════════════════════════════════════════════════════════════
+      // OPTION B: Direct Google Sheets URL (only works when hosted on a server)
+      // ═══════════════════════════════════════════════════════════════════════
+      SHEET_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8NRFpNu0u9aCAn2JILOWy2kZpw8_g3WS7f5oHcurpFc51VVecmrrOJ__h7osWpJnLN_5OG7lAPZEH/pub?gid=1724757447&single=true&output=csv',
+      
+      // How often to refresh (in milliseconds)
+      REFRESH_INTERVAL: 60000,  // Refresh from Google Sheets every 1 minute
+      
+      // Column mapping - YOUR SHEET STRUCTURE (A-E only, public info)
+      // (0-indexed: A=0, B=1, C=2, D=3, E=4)
+      COLUMNS: {
+        DATE: 0,           // Column A: Date
+        DAY: 1,            // Column B: Day of week (Th+Fr, Tuesday, etc.)
+        SLOT_1: 2,         // Column C: 10:00-12:00
+        SLOT_2: 3,         // Column D: 13:00-15:00
+        SLOT_3: 4          // Column E: ab 15:00 / Workshops
+      },
+      
+      // Only read columns A-E (indices 0-4)
+      MAX_COLUMN: 4,
+      
+      // Rows to EXCLUDE from public display (1-indexed, as in Google Sheets)
+      // Rows 2–4 = header-like rows (e.g. "13:00 - 15:00", ",15:00,,,")
+      // Row 24 = internal row
+      EXCLUDED_ROWS: [2, 3, 4, 24],
+      
+      // Number of header rows to skip (row 1 = "Sommer Term 2026" title)
+      HEADER_ROWS: 1,
+      
+      // Keywords to detect event types (for color coding and filter toggles)
+      // Order matters: first match wins. Workshop = workshop + all hands-on variants. ZKF = all zkf. Symposium toggle = symposium + soiree.
+      TYPE_KEYWORDS: {
+        introduction: ['intro', 'introduction'],
+        zkf: ['zkf', 'kickoff', 'kick off', 'kick-off'],
+        workshop: ['workshop', 'hands-on', 'handson', 'hands on'],
+        deadline: ['deadline', 'diplome', 'registration', 'anmelde', 'meldung', 'abgabe', 'studienabschließend', 'studienabschließende', 'angewandte festival', 'semester finals', 'finals with jury', 'final exams', 'midterm', 'midterms'],
+        excursion: ['exkursion', 'excursion', 'a.maze', 'mak'],
+        symposium: ['symposium', 'ludic method'],
+        holiday: ['osterferien', 'ferien', 'holiday', 'break'],
+        exam: ['prüfung', 'exam', 'finals', 'midterm', 'studienabschließend'],
+        soiree: ['soirée', 'soiree', 'ludic tea'],
+        gamejam: ['game jam', 'gamejam', 'mikro game'],
+        lecture: ['lecture', 'embodying', 'playing with']
+      }
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // STATE
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    let scheduleData = [];
+    let currentMonthFilter = 'all';
+    // Single type filter: null = show all, or one key (e.g. 'workshop') = show only that category
+    let activeTypeFilter = null;
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // GOOGLE SHEETS LOADING
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    async function loadSchedule() {
+      const loadingEl = document.getElementById('loadingState');
+      const errorEl = document.getElementById('errorState');
+      const tableEl = document.getElementById('scheduleTable');
+      const statusDot = document.getElementById('statusDot');
+      const statusText = document.getElementById('statusText');
+      
+      try {
+        loadingEl.style.display = 'block';
+        errorEl.style.display = 'none';
+        tableEl.style.display = 'none';
+        
+        let csvText;
+        
+        if (CONFIG.USE_APPS_SCRIPT) {
+          // Option A: Use Google Apps Script proxy (works everywhere)
+          const response = await fetch(CONFIG.APPS_SCRIPT_URL);
+          if (!response.ok) throw new Error('Failed to fetch from Apps Script');
+          csvText = await response.text();
+        } else {
+          // Option B: Direct fetch (requires hosting on a server, not file://)
+          const url = CONFIG.SHEET_URL + '&_=' + Date.now();
+          const response = await fetch(url);
+          if (!response.ok) throw new Error('Failed to fetch');
+          csvText = await response.text();
+        }
+        
+        scheduleData = parseCSV(csvText);
+        buildMonthFilter();
+        renderSchedule();
+        
+        loadingEl.style.display = 'none';
+        tableEl.style.display = 'table';
+        statusDot.classList.remove('error');
+        statusText.textContent = 'Live • Auto-updating';
+        document.getElementById('lastUpdate').textContent = new Date().toLocaleString('de-AT');
+        
+      } catch (error) {
+        console.error('Error loading schedule:', error);
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+        statusDot.classList.add('error');
+        statusText.textContent = 'Connection error';
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // CSV PARSING
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    function parseCSV(csvText) {
+      const lines = csvText.split('\n');
+      const data = [];
+      
+      // Process each row (1-indexed for matching with Google Sheets row numbers)
+      for (let i = 0; i < lines.length; i++) {
+        const sheetRowNumber = i + 1; // Convert to 1-indexed (as shown in Google Sheets)
+        
+        // Skip header rows
+        if (sheetRowNumber <= CONFIG.HEADER_ROWS) continue;
+        
+        // Skip excluded rows
+        if (CONFIG.EXCLUDED_ROWS.includes(sheetRowNumber)) continue;
+        
+        const row = parseCSVLine(lines[i]);
+        const dateValue = (row[CONFIG.COLUMNS.DATE] || '').trim();
+        if (row.length === 0) continue;
+        if (!dateValue) continue;
+        // Skip rows where date column is only a time (e.g. "15:00", "13:00 - 15:00")
+        if (/^\s*\d{1,2}\s*:\s*\d{2}/.test(dateValue) || /^\s*\d{1,2}:\d{2}\s*$/.test(dateValue)) continue;
+        
+        data.push({
+          date: dateValue,
+          day: row[CONFIG.COLUMNS.DAY]?.trim() || '',
+          slot1: row[CONFIG.COLUMNS.SLOT_1]?.trim() || '',
+          slot2: row[CONFIG.COLUMNS.SLOT_2]?.trim() || '',
+          slot3: row[CONFIG.COLUMNS.SLOT_3]?.trim() || '',
+          rawDate: parseDate(dateValue),
+          sheetRow: sheetRowNumber
+        });
+      }
+      
+      return data;
+    }
+
+    function parseCSVLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          result.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current.trim());
+      
+      return result;
+    }
+
+    function parseDate(dateStr) {
+      if (!dateStr) return null;
+      
+      // Handle formats like "04.03.26", "17. - 20.03.26", "28.03 - 12.04.26"
+      const match = dateStr.match(/(\d{1,2})\.(\d{1,2})\.?(\d{2,4})?/);
+      if (!match) return null;
+      
+      let day = parseInt(match[1]);
+      let month = parseInt(match[2]) - 1;
+      let year = match[3] ? parseInt(match[3]) : new Date().getFullYear();
+      
+      // Handle 2-digit years
+      if (year < 100) year += 2000;
+      
+      return new Date(year, month, day);
+    }
+
+    // Get day name in German/English
+    function getDayName(date) {
+      if (!date) return '';
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      return days[date.getDay()];
+    }
+
+    // Month key for filtering (e.g. "2026-03")
+    function getMonthKey(date) {
+      if (!date || !(date instanceof Date) || isNaN(date.getTime())) return null;
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      return `${y}-${m}`;
+    }
+
+    // Build month dropdown from schedule data
+    function buildMonthFilter() {
+      const select = document.getElementById('monthFilter');
+      if (!select) return;
+      const months = new Set();
+      scheduleData.forEach(row => {
+        const key = getMonthKey(row.rawDate);
+        if (key) months.add(key);
+      });
+      const sorted = Array.from(months).sort();
+      const currentValue = select.value;
+      select.innerHTML = '<option value="all">All</option>';
+      sorted.forEach(key => {
+        const [y, m] = key.split('-');
+        const date = new Date(parseInt(y, 10), parseInt(m, 10) - 1, 1);
+        const label = date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+        const opt = document.createElement('option');
+        opt.value = key;
+        opt.textContent = label;
+        select.appendChild(opt);
+      });
+      if (currentMonthFilter && (currentMonthFilter === 'all' || months.has(currentMonthFilter))) {
+        select.value = currentMonthFilter;
+      } else {
+        select.value = 'all';
+        currentMonthFilter = 'all';
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // RENDERING
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    function renderSchedule() {
+      const tbody = document.getElementById('scheduleBody');
+      tbody.innerHTML = '';
+      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      scheduleData.forEach((row, index) => {
+        const tr = document.createElement('tr');
+        
+        // Determine if past/future
+        const isPast = row.rawDate && row.rawDate < today;
+        const isToday = row.rawDate && row.rawDate.toDateString() === today.toDateString();
+        
+        // Apply month filter
+        if (currentMonthFilter !== 'all') {
+          const rowMonthKey = getMonthKey(row.rawDate);
+          if (rowMonthKey !== currentMonthFilter) {
+            tr.classList.add('hidden');
+          }
+        }
+        
+        // Detect event types in this row
+        const rowTypes = detectEventTypes(row);
+        
+        // Apply type filter: show row if any of its types is included (or row has no filterable types)
+        if (!isRowVisibleByTypeFilter(rowTypes)) {
+          tr.classList.add('hidden');
+        }
+        
+        if (isToday) tr.classList.add('today');
+        if (isPast) tr.classList.add('past');
+
+        // Date cell - always show day name
+        const dateCell = document.createElement('td');
+        // Use day from column B if available, otherwise calculate from date
+        let dayName = row.day || '';
+        if (!dayName && row.rawDate) {
+          dayName = getDayName(row.rawDate);
+        }
+        dateCell.innerHTML = `
+          <div class="date-cell">${escapeHtml(row.date)}</div>
+          <div class="date-day">${escapeHtml(dayName)}</div>
+        `;
+        tr.appendChild(dateCell);
+        
+        // Time slot cells – if event spans all three slots, show one cell with colspan 3
+        const s1 = (row.slot1 || '').trim();
+        const s2 = (row.slot2 || '').trim();
+        const s3 = (row.slot3 || '').trim();
+        const isFullRowEvent = s1 && (
+          (s1 === s2 && s2 === s3) ||
+          (!s2 && !s3)
+        );
+        const contentForRow = s1 || s2 || s3;
+
+        if (isFullRowEvent && contentForRow) {
+          const td = document.createElement('td');
+          td.colSpan = 3;
+          const type = detectEventType(contentForRow);
+          const titleText = escapeHtml(getPlainTextForTitle(contentForRow));
+          td.innerHTML = `<div class="event-cell ${type} full-row-event" title="${titleText}"><span class="event-cell-inner">${formatContent(contentForRow)}</span></div>`;
+          tr.appendChild(td);
+        } else {
+          [row.slot1, row.slot2, row.slot3].forEach(content => {
+            const td = document.createElement('td');
+            if (content) {
+              const type = detectEventType(content);
+              const filterKey = getFilterKeyForRowType(type);
+              const showEvent = activeTypeFilter === null || filterKey === activeTypeFilter;
+              if (showEvent) {
+                const titleText = escapeHtml(getPlainTextForTitle(content));
+                td.innerHTML = `<div class="event-cell ${type}" title="${titleText}"><span class="event-cell-inner">${formatContent(content)}</span></div>`;
+              }
+            }
+            tr.appendChild(td);
+          });
+        }
+        
+        tbody.appendChild(tr);
+      });
+    }
+
+    function detectEventType(content) {
+      const lower = content.toLowerCase();
+      
+      for (const [type, keywords] of Object.entries(CONFIG.TYPE_KEYWORDS)) {
+        if (keywords.some(kw => lower.includes(kw))) {
+          return type;
+        }
+      }
+      
+      return 'lecture';
+    }
+
+    function detectEventTypes(row) {
+      const types = new Set();
+      [row.slot1, row.slot2, row.slot3].forEach(content => {
+        if (content) types.add(detectEventType(content));
+      });
+      return Array.from(types);
+    }
+
+    // Map row type to filter key so each toggle controls all matching event types
+    function getFilterKeyForRowType(rowType) {
+      if (rowType === 'soiree') return 'symposium';  // Symposium toggle = symposium + soirée / ludic tea
+      return rowType;  // zkf→ZKF, workshop→Workshop (incl. hands-on), excursion→Excursion, etc.
+    }
+
+    const TYPE_FILTER_KEYS = ['introduction', 'zkf', 'workshop', 'excursion', 'symposium', 'gamejam', 'deadline', 'holiday'];
+
+    function isRowVisibleByTypeFilter(rowTypes) {
+      if (activeTypeFilter === null) return true;
+      if (rowTypes.length === 0) return false;
+      return rowTypes.some(rt => getFilterKeyForRowType(rt) === activeTypeFilter);
+    }
+
+    function updateTypeToggleButtons() {
+      document.querySelectorAll('.filter-btn.type-toggle[data-type]').forEach(btn => {
+        const key = btn.dataset.type;
+        btn.classList.toggle('active', activeTypeFilter === key);
+      });
+    }
+
+    // Optional: normalize whitespace only; full content is displayed
+    function stripPodcastPart(content) {
+      if (!content || typeof content !== 'string') return content;
+      return content
+        .replace(/\s*\.\.\.\s*\.\.\.\s*/g, ' ')
+        .replace(/\s{2,}/g, ' ')
+        .replace(/^[\s,]+|[\s,]+$/g, '')
+        .trim();
+    }
+
+    function formatContent(content) {
+      const cleaned = stripPodcastPart(content);
+      let formatted = escapeHtml(cleaned);
+      formatted = formatted.replace(
+        /(https?:\/\/[^\s]+)/g,
+        '<a href="$1" target="_blank" rel="noopener">Link ↗</a>'
+      );
+      return formatted;
+    }
+
+    function getPlainTextForTitle(content) {
+      const cleaned = stripPodcastPart(content);
+      return cleaned;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // FILTERS
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    const monthFilterEl = document.getElementById('monthFilter');
+    if (monthFilterEl) {
+      monthFilterEl.addEventListener('change', () => {
+        currentMonthFilter = monthFilterEl.value;
+        renderSchedule();
+      });
+    }
+
+    document.querySelectorAll('.filter-btn.type-toggle[data-type]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.type;
+        if (activeTypeFilter === key) {
+          activeTypeFilter = null;
+        } else {
+          activeTypeFilter = key;
+        }
+        updateTypeToggleButtons();
+        renderSchedule();
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // INITIALIZATION
+    // ═══════════════════════════════════════════════════════════════════════════
+    
+    // Load schedule once when page opens (no auto-refresh during use)
+    loadSchedule();
+  </script>
+
+</body>
+</html>
