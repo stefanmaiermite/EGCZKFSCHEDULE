@@ -81,6 +81,7 @@
 
     /* ═══════════════════════════════════════════
        MAIN LAYOUT (on top of video)
+       Additive blend so iridescent toggles/cells react to moving video
        ═══════════════════════════════════════════ */
     .main-container {
       position: relative;
@@ -88,6 +89,8 @@
       max-width: 1600px;
       margin: 0 auto;
       padding: 2rem;
+      mix-blend-mode: screen;
+      isolation: isolate;
     }
 
     /* ═══════════════════════════════════════════
@@ -482,11 +485,11 @@
       width: 100%;
       table-layout: fixed;
       border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
       border-radius: 1.25rem;
     }
 
@@ -594,7 +597,7 @@
       line-height: 1.4;
       overflow: hidden;
       --cell-delay: 0s;
-      --cell-duration: 22s;
+      --cell-duration: 10s;
       --cell-phase: 120deg;
     }
 
@@ -689,7 +692,19 @@
       pointer-events: none;
     }
 
-    /* Additive shimmer – one soft blob, fits small cells. No double-line. Screen blend. */
+    /* Additive shimmer – one soft blob. Orientation per type via different animation. */
+    .event-cell.workshop::after { animation-name: cellIridescentA; }
+    .event-cell.deadline::after { animation-name: cellIridescentB; }
+    .event-cell.excursion::after { animation-name: cellIridescentC; }
+    .event-cell.symposium::after,
+    .event-cell.soiree::after { animation-name: cellIridescentD; }
+    .event-cell.holiday::after { animation-name: cellIridescentA; }
+    .event-cell.exam::after { animation-name: cellIridescentB; }
+    .event-cell.gamejam::after { animation-name: cellIridescentC; }
+    .event-cell.zkf::after { animation-name: cellIridescentD; }
+    .event-cell.introduction::after { animation-name: cellIridescentA; }
+    .event-cell.lecture::after { animation-name: cellIridescentB; }
+
     .event-cell.workshop::after,
     .event-cell.deadline::after,
     .event-cell.excursion::after,
@@ -714,27 +729,35 @@
       opacity: 0;
       mix-blend-mode: screen;
       pointer-events: none;
-      animation: cellIridescent var(--cell-duration, 22s) ease-in-out infinite;
+      animation-duration: var(--cell-duration, 10s);
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
       animation-delay: var(--cell-delay, 0s);
     }
 
-    @keyframes cellIridescent {
-      0%, 100% {
-        opacity: 0;
-        transform: translate(-15%, 5%) scale(1.05);
-      }
-      25% {
-        opacity: 0.65;
-        transform: translate(8%, -3%) scale(1.08);
-      }
-      50% {
-        opacity: 0.25;
-        transform: translate(-5%, -8%) scale(1.06);
-      }
-      75% {
-        opacity: 0.55;
-        transform: translate(5%, 5%) scale(1.07);
-      }
+    @keyframes cellIridescentA {
+      0%, 100% { opacity: 0; transform: translate(-12%, 8%) scale(1.05); }
+      25% { opacity: 0.65; transform: translate(10%, -5%) scale(1.08); }
+      50% { opacity: 0.25; transform: translate(-5%, -10%) scale(1.06); }
+      75% { opacity: 0.55; transform: translate(8%, 6%) scale(1.07); }
+    }
+    @keyframes cellIridescentB {
+      0%, 100% { opacity: 0; transform: translate(12%, -8%) scale(1.05); }
+      25% { opacity: 0.65; transform: translate(-10%, 5%) scale(1.08); }
+      50% { opacity: 0.25; transform: translate(5%, 10%) scale(1.06); }
+      75% { opacity: 0.55; transform: translate(-8%, -6%) scale(1.07); }
+    }
+    @keyframes cellIridescentC {
+      0%, 100% { opacity: 0; transform: translate(8%, 12%) scale(1.05); }
+      25% { opacity: 0.65; transform: translate(-6%, -10%) scale(1.08); }
+      50% { opacity: 0.25; transform: translate(10%, 5%) scale(1.06); }
+      75% { opacity: 0.55; transform: translate(-8%, 8%) scale(1.07); }
+    }
+    @keyframes cellIridescentD {
+      0%, 100% { opacity: 0; transform: translate(-8%, -12%) scale(1.05); }
+      25% { opacity: 0.65; transform: translate(6%, 10%) scale(1.08); }
+      50% { opacity: 0.25; transform: translate(-10%, -5%) scale(1.06); }
+      75% { opacity: 0.55; transform: translate(8%, -8%) scale(1.07); }
     }
 
     .event-cell a {
@@ -1276,8 +1299,8 @@
         const contentForRow = s1 || s2 || s3;
 
         function cellIridescentVars(rowIdx, colIdx) {
-          const delay = (rowIdx * 1.7 + colIdx * 2.3) % 14;
-          const duration = 20 + (rowIdx + colIdx * 2) % 14;
+          const delay = (rowIdx * 1.7 + colIdx * 2.3) % 8;
+          const duration = 6 + (rowIdx + colIdx * 2) % 5;
           const phase = (rowIdx * 73 + colIdx * 47) % 360;
           return `--cell-delay: ${delay.toFixed(1)}s; --cell-duration: ${duration}s; --cell-phase: ${phase}deg`;
         }
