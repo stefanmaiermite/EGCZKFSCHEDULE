@@ -168,6 +168,32 @@
       animation: shellShimmer 6s linear infinite;
     }
 
+    .logo-schedule {
+      position: relative;
+      display: inline-block;
+      margin-left: 0.4ch;
+      background-image:
+        conic-gradient(
+          from 40deg,
+          rgba(255, 255, 255, 0.9),
+          #ffe6a8,
+          #f6b4ff,
+          #a0f0ff,
+          #b9ffde,
+          rgba(255, 255, 255, 0.9)
+        );
+      background-size: 260% 260%;
+      background-position: 100% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.45),
+        0 0 16px rgba(190, 255, 243, 0.4);
+      mix-blend-mode: screen;
+      animation: iridescentShift 11s ease-in-out infinite alternate-reverse;
+    }
+
     @keyframes iridescentShift {
       0% {
         background-position: 0% 35%;
@@ -502,9 +528,10 @@
 
     /* Date cell */
     .date-cell {
-      font-family: var(--font-display);
-      font-weight: 700;
+      font-family: var(--font-mono);
+      font-weight: 400;
       font-size: 0.85rem;
+      letter-spacing: 0.06em;
       white-space: normal;
       word-wrap: break-word;
     }
@@ -802,7 +829,7 @@
       <div class="header-top">
         <div class="logo-section">
           <p class="subtitle">experimental game cultures</p>
-          <h1><span class="logo-zkf">ZKF</span> SCHEDULE</h1>
+          <h1><span class="logo-zkf">ZKF</span> <span class="logo-schedule">SCHEDULE</span></h1>
           <p class="term">Summer Term 2026 — University of Applied Arts Vienna</p>
         </div>
         <div class="status-box">
