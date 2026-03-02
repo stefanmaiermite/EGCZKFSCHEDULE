@@ -81,7 +81,6 @@
 
     /* ═══════════════════════════════════════════
        MAIN LAYOUT (on top of video)
-       Additive blend so iridescent toggles/cells react to moving video
        ═══════════════════════════════════════════ */
     .main-container {
       position: relative;
@@ -89,8 +88,6 @@
       max-width: 1600px;
       margin: 0 auto;
       padding: 2rem;
-      mix-blend-mode: screen;
-      isolation: isolate;
     }
 
     /* ═══════════════════════════════════════════
@@ -485,11 +482,11 @@
       width: 100%;
       table-layout: fixed;
       border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.03);
       border-radius: 1.25rem;
     }
 
