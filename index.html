@@ -683,8 +683,8 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: linear-gradient(calc(var(--cell-phase) + 85deg), rgba(255,255,255,0.25) 0%, #b8eeff 22%, #f5e0ff 48%, #fff0d8 72%, #d8f8e8 100%);
-      opacity: 0.48;
+      background: linear-gradient(calc(var(--cell-phase) + 85deg), rgba(255,255,255,0.42) 0%, #c4f2ff 22%, #f8e8ff 48%, #fff4e0 72%, #e0fcf0 100%);
+      opacity: 0.88;
       mix-blend-mode: screen;
       pointer-events: none;
     }
@@ -718,9 +718,9 @@
       inset: -25%;
       background: radial-gradient(
         ellipse 90% 70% at 50% 50%,
-        rgba(255,255,255,0.5) 0%,
-        rgba(255,255,255,0.25) 35%,
-        rgba(255,255,255,0.08) 60%,
+        rgba(255,255,255,0.88) 0%,
+        rgba(255,255,255,0.5) 35%,
+        rgba(255,255,255,0.18) 60%,
         transparent 100%
       );
       opacity: 0;
@@ -734,27 +734,27 @@
 
     @keyframes cellIridescentA {
       0%, 100% { opacity: 0; transform: translate(-12%, 8%) scale(1.05); }
-      25% { opacity: 0.65; transform: translate(10%, -5%) scale(1.08); }
-      50% { opacity: 0.25; transform: translate(-5%, -10%) scale(1.06); }
-      75% { opacity: 0.55; transform: translate(8%, 6%) scale(1.07); }
+      25% { opacity: 0.9; transform: translate(10%, -5%) scale(1.08); }
+      50% { opacity: 0.4; transform: translate(-5%, -10%) scale(1.06); }
+      75% { opacity: 0.82; transform: translate(8%, 6%) scale(1.07); }
     }
     @keyframes cellIridescentB {
       0%, 100% { opacity: 0; transform: translate(12%, -8%) scale(1.05); }
-      25% { opacity: 0.65; transform: translate(-10%, 5%) scale(1.08); }
-      50% { opacity: 0.25; transform: translate(5%, 10%) scale(1.06); }
-      75% { opacity: 0.55; transform: translate(-8%, -6%) scale(1.07); }
+      25% { opacity: 0.9; transform: translate(-10%, 5%) scale(1.08); }
+      50% { opacity: 0.4; transform: translate(5%, 10%) scale(1.06); }
+      75% { opacity: 0.82; transform: translate(-8%, -6%) scale(1.07); }
     }
     @keyframes cellIridescentC {
       0%, 100% { opacity: 0; transform: translate(8%, 12%) scale(1.05); }
-      25% { opacity: 0.65; transform: translate(-6%, -10%) scale(1.08); }
-      50% { opacity: 0.25; transform: translate(10%, 5%) scale(1.06); }
-      75% { opacity: 0.55; transform: translate(-8%, 8%) scale(1.07); }
+      25% { opacity: 0.9; transform: translate(-6%, -10%) scale(1.08); }
+      50% { opacity: 0.4; transform: translate(10%, 5%) scale(1.06); }
+      75% { opacity: 0.82; transform: translate(-8%, 8%) scale(1.07); }
     }
     @keyframes cellIridescentD {
       0%, 100% { opacity: 0; transform: translate(-8%, -12%) scale(1.05); }
-      25% { opacity: 0.65; transform: translate(6%, 10%) scale(1.08); }
-      50% { opacity: 0.25; transform: translate(-10%, -5%) scale(1.06); }
-      75% { opacity: 0.55; transform: translate(8%, -8%) scale(1.07); }
+      25% { opacity: 0.9; transform: translate(6%, 10%) scale(1.08); }
+      50% { opacity: 0.4; transform: translate(-10%, -5%) scale(1.06); }
+      75% { opacity: 0.82; transform: translate(8%, -8%) scale(1.07); }
     }
 
     .event-cell a {
