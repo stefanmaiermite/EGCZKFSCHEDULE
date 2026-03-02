@@ -322,88 +322,106 @@
       overflow: hidden;
     }
 
-    /* Additive shimmer overlay – pearl sweep, screen blend */
+    /* Additive shimmer – slower, noisier (multiple soft bands), not a single line. Screen blend. */
     .filter-btn.type-toggle.active::after {
       content: '';
       position: absolute;
-      inset: -40%;
+      inset: -50%;
       background:
         linear-gradient(
-          110deg,
+          100deg,
           transparent 0%,
-          rgba(255, 255, 255, 0.5) 35%,
-          rgba(255, 255, 255, 0.85) 50%,
-          rgba(255, 255, 255, 0.4) 65%,
+          rgba(255, 255, 255, 0.15) 12%,
+          rgba(255, 255, 255, 0.5) 22%,
+          rgba(255, 255, 255, 0.2) 32%,
+          transparent 42%,
+          transparent 52%,
+          rgba(255, 255, 255, 0.12) 62%,
+          rgba(255, 255, 255, 0.45) 72%,
+          rgba(255, 255, 255, 0.18) 82%,
+          transparent 92%,
+          transparent 100%
+        ),
+        linear-gradient(
+          75deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.08) 30%,
+          rgba(255, 255, 255, 0.35) 50%,
+          rgba(255, 255, 255, 0.1) 70%,
           transparent 100%
         );
       opacity: 0;
       mix-blend-mode: screen;
       pointer-events: none;
-      animation: typeToggleShimmer 5s ease-in-out infinite;
+      animation: typeToggleShimmer 14s ease-in-out infinite;
     }
 
     @keyframes typeToggleShimmer {
       0% {
         opacity: 0;
-        transform: translateX(-80%);
+        transform: translate(-60%, -20%) scale(1.1);
       }
-      18% {
-        opacity: 0.55;
-        transform: translateX(-10%);
+      25% {
+        opacity: 0.5;
+        transform: translate(0%, 5%) scale(1.15);
       }
-      35% {
-        opacity: 0;
-        transform: translateX(40%);
+      50% {
+        opacity: 0.2;
+        transform: translate(40%, -10%) scale(1.05);
+      }
+      75% {
+        opacity: 0.45;
+        transform: translate(20%, 15%) scale(1.12);
       }
       100% {
         opacity: 0;
-        transform: translateX(80%);
+        transform: translate(80%, 0%) scale(1.1);
       }
     }
 
-    /* Iridescent: category as main colour, pearl/other colours around it but less. Additive overlay. */
+    /* Iridescent: linear gradients – no center, no seam. Category main, pearl bands. */
     .filter-btn.type-toggle[data-type="introduction"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #6366f1 0%, rgba(200, 220, 255, 0.75) 25%, #6366f1 50%, rgba(245, 220, 255, 0.7) 75%, #6366f1 100%);
+      background: linear-gradient(120deg, #6366f1 0%, rgba(200, 220, 255, 0.8) 28%, #6366f1 50%, rgba(245, 220, 255, 0.75) 78%, #6366f1 100%);
       border-color: rgba(220, 218, 255, 0.9);
       color: #fff;
     }
     .filter-btn.type-toggle[data-type="zkf"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #0d9488 0%, rgba(180, 255, 245, 0.8) 25%, #0d9488 50%, rgba(200, 255, 235, 0.75) 75%, #0d9488 100%);
+      background: linear-gradient(120deg, #0d9488 0%, rgba(180, 255, 245, 0.85) 28%, #0d9488 50%, rgba(200, 255, 235, 0.8) 78%, #0d9488 100%);
       border-color: rgba(176, 255, 240, 0.85);
       color: #fff;
     }
     .filter-btn.type-toggle[data-type="workshop"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #22c55e 0%, rgba(200, 255, 220, 0.8) 25%, #22c55e 50%, rgba(220, 255, 235, 0.75) 75%, #22c55e 100%);
+      background: linear-gradient(120deg, #22c55e 0%, rgba(200, 255, 220, 0.85) 28%, #22c55e 50%, rgba(220, 255, 235, 0.8) 78%, #22c55e 100%);
       border-color: rgba(200, 255, 220, 0.85);
       color: #fff;
     }
     .filter-btn.type-toggle[data-type="excursion"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #06b6d4 0%, rgba(200, 245, 255, 0.8) 25%, #06b6d4 50%, rgba(220, 255, 255, 0.75) 75%, #06b6d4 100%);
+      background: linear-gradient(120deg, #06b6d4 0%, rgba(200, 245, 255, 0.85) 28%, #06b6d4 50%, rgba(220, 255, 255, 0.8) 78%, #06b6d4 100%);
       border-color: rgba(200, 255, 255, 0.85);
       color: #fff;
     }
     .filter-btn.type-toggle[data-type="symposium"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #a855f7 0%, rgba(235, 220, 255, 0.8) 25%, #a855f7 50%, rgba(245, 230, 255, 0.75) 75%, #a855f7 100%);
+      background: linear-gradient(120deg, #a855f7 0%, rgba(235, 220, 255, 0.85) 28%, #a855f7 50%, rgba(245, 230, 255, 0.8) 78%, #a855f7 100%);
       border-color: rgba(235, 220, 255, 0.85);
       color: #fff;
     }
     .filter-btn.type-toggle[data-type="gamejam"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #14b8a6 0%, rgba(200, 255, 248, 0.8) 25%, #14b8a6 50%, rgba(220, 255, 245, 0.75) 75%, #14b8a6 100%);
+      background: linear-gradient(120deg, #14b8a6 0%, rgba(200, 255, 248, 0.85) 28%, #14b8a6 50%, rgba(220, 255, 245, 0.8) 78%, #14b8a6 100%);
       border-color: rgba(200, 255, 248, 0.85);
       color: #fff;
     }
     .filter-btn.type-toggle[data-type="deadline"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #ef4444 0%, rgba(255, 220, 220, 0.75) 25%, #ef4444 50%, rgba(255, 235, 230, 0.7) 75%, #ef4444 100%);
+      background: linear-gradient(120deg, #ef4444 0%, rgba(255, 220, 220, 0.8) 28%, #ef4444 50%, rgba(255, 235, 230, 0.75) 78%, #ef4444 100%);
       border-color: rgba(255, 220, 220, 0.85);
       color: #fff;
     }
     .filter-btn.type-toggle[data-type="holiday"].active {
-      background: conic-gradient(from 180deg at 50% 50%, #fbbf24 0%, rgba(255, 250, 220, 0.85) 25%, #fbbf24 50%, rgba(255, 245, 210, 0.8) 75%, #fbbf24 100%);
+      background: linear-gradient(120deg, #fbbf24 0%, rgba(255, 250, 220, 0.9) 28%, #fbbf24 50%, rgba(255, 245, 210, 0.85) 78%, #fbbf24 100%);
       border-color: rgba(255, 250, 220, 0.9);
       color: #0a0a0f;
     }
 
-    /* Additive iridescent tint – other pearl colours layered on top, screen blend */
+    /* Additive pearl overlay – linear strips, no center. Screen blend. */
     .filter-btn.type-toggle[data-type="introduction"].active::before,
     .filter-btn.type-toggle[data-type="zkf"].active::before,
     .filter-btn.type-toggle[data-type="workshop"].active::before,
@@ -416,7 +434,7 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: conic-gradient(from 60deg at 50% 50%, rgba(255,255,255,0.25), #a0e0ff 20%, #f0d8ff 40%, #ffe8c8 60%, #c8f5e0 80%);
+      background: linear-gradient(60deg, rgba(255,255,255,0.08) 0%, #a0e0ff 25%, #f0d8ff 50%, #ffe8c8 75%, #c8f5e0 100%);
       opacity: 0.35;
       mix-blend-mode: screen;
       pointer-events: none;
@@ -573,10 +591,8 @@
       line-height: 1.4;
       overflow: hidden;
       --cell-delay: 0s;
-      --cell-duration: 14s;
-      --cell-phase: 0deg;
-      --cell-cx: 50%;
-      --cell-cy: 50%;
+      --cell-duration: 22s;
+      --cell-phase: 120deg;
     }
 
     .event-cell-inner {
@@ -589,50 +605,50 @@
       overflow: visible;
     }
 
-    /* Iridescent: category as main, pearl colours secondary. Origin offset per cell to avoid radial-centric look. */
+    /* Iridescent: linear gradients – no center, no seam. Angle per cell (--cell-phase). */
     .event-cell.workshop {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(34, 197, 94, 0.4) 0%, rgba(200, 255, 220, 0.35) 25%, rgba(34, 197, 94, 0.35) 50%, rgba(220, 255, 235, 0.3) 75%, rgba(34, 197, 94, 0.4) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(34, 197, 94, 0.4) 0%, rgba(200, 255, 220, 0.35) 28%, rgba(34, 197, 94, 0.35) 50%, rgba(220, 255, 235, 0.3) 78%, rgba(34, 197, 94, 0.4) 100%);
       color: #14532d;
     }
     .event-cell.deadline {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(239, 68, 68, 0.4) 0%, rgba(255, 220, 220, 0.3) 25%, rgba(239, 68, 68, 0.35) 50%, rgba(255, 235, 230, 0.28) 75%, rgba(239, 68, 68, 0.4) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(239, 68, 68, 0.4) 0%, rgba(255, 220, 220, 0.3) 28%, rgba(239, 68, 68, 0.35) 50%, rgba(255, 235, 230, 0.28) 78%, rgba(239, 68, 68, 0.4) 100%);
       color: #991b1b;
     }
     .event-cell.excursion {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(6, 182, 212, 0.4) 0%, rgba(200, 245, 255, 0.35) 25%, rgba(6, 182, 212, 0.35) 50%, rgba(220, 255, 255, 0.3) 75%, rgba(6, 182, 212, 0.4) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(6, 182, 212, 0.4) 0%, rgba(200, 245, 255, 0.35) 28%, rgba(6, 182, 212, 0.35) 50%, rgba(220, 255, 255, 0.3) 78%, rgba(6, 182, 212, 0.4) 100%);
       color: #0e7490;
     }
     .event-cell.symposium,
     .event-cell.soiree {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(168, 85, 247, 0.4) 0%, rgba(235, 220, 255, 0.35) 25%, rgba(168, 85, 247, 0.35) 50%, rgba(245, 230, 255, 0.3) 75%, rgba(168, 85, 247, 0.4) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(168, 85, 247, 0.4) 0%, rgba(235, 220, 255, 0.35) 28%, rgba(168, 85, 247, 0.35) 50%, rgba(245, 230, 255, 0.3) 78%, rgba(168, 85, 247, 0.4) 100%);
       color: #581c87;
     }
     .event-cell.holiday {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(251, 191, 36, 0.5) 0%, rgba(255, 250, 220, 0.4) 25%, rgba(251, 191, 36, 0.45) 50%, rgba(255, 245, 210, 0.38) 75%, rgba(251, 191, 36, 0.5) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(251, 191, 36, 0.5) 0%, rgba(255, 250, 220, 0.4) 28%, rgba(251, 191, 36, 0.45) 50%, rgba(255, 245, 210, 0.38) 78%, rgba(251, 191, 36, 0.5) 100%);
       color: #713f12;
     }
     .event-cell.exam {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(249, 115, 22, 0.4) 0%, rgba(255, 235, 220, 0.3) 25%, rgba(249, 115, 22, 0.35) 50%, rgba(255, 240, 225, 0.28) 75%, rgba(249, 115, 22, 0.4) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(249, 115, 22, 0.4) 0%, rgba(255, 235, 220, 0.3) 28%, rgba(249, 115, 22, 0.35) 50%, rgba(255, 240, 225, 0.28) 78%, rgba(249, 115, 22, 0.4) 100%);
       color: #9a3412;
     }
     .event-cell.gamejam {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(20, 184, 166, 0.4) 0%, rgba(200, 255, 248, 0.35) 25%, rgba(20, 184, 166, 0.35) 50%, rgba(220, 255, 245, 0.3) 75%, rgba(20, 184, 166, 0.4) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(20, 184, 166, 0.4) 0%, rgba(200, 255, 248, 0.35) 28%, rgba(20, 184, 166, 0.35) 50%, rgba(220, 255, 245, 0.3) 78%, rgba(20, 184, 166, 0.4) 100%);
       color: #0f766e;
     }
     .event-cell.zkf {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(13, 148, 136, 0.4) 0%, rgba(180, 255, 245, 0.35) 25%, rgba(13, 148, 136, 0.35) 50%, rgba(200, 255, 235, 0.3) 75%, rgba(13, 148, 136, 0.4) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(13, 148, 136, 0.4) 0%, rgba(180, 255, 245, 0.35) 28%, rgba(13, 148, 136, 0.35) 50%, rgba(200, 255, 235, 0.3) 78%, rgba(13, 148, 136, 0.4) 100%);
       color: #064e3b;
     }
     .event-cell.introduction {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(99, 102, 241, 0.35) 0%, rgba(200, 220, 255, 0.32) 25%, rgba(99, 102, 241, 0.32) 50%, rgba(245, 220, 255, 0.28) 75%, rgba(99, 102, 241, 0.35) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(99, 102, 241, 0.35) 0%, rgba(200, 220, 255, 0.32) 28%, rgba(99, 102, 241, 0.32) 50%, rgba(245, 220, 255, 0.28) 78%, rgba(99, 102, 241, 0.35) 100%);
       color: #3730a3;
     }
     .event-cell.lecture {
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(120, 120, 120, 0.35) 0%, rgba(240, 240, 245, 0.3) 25%, rgba(120, 120, 120, 0.3) 50%, rgba(250, 248, 252, 0.28) 75%, rgba(120, 120, 120, 0.35) 100%);
+      background: linear-gradient(var(--cell-phase), rgba(120, 120, 120, 0.35) 0%, rgba(240, 240, 245, 0.3) 28%, rgba(120, 120, 120, 0.3) 50%, rgba(250, 248, 252, 0.28) 78%, rgba(120, 120, 120, 0.35) 100%);
       color: var(--color-text);
     }
 
-    /* Additive overlay – pearl colours, origin offset so no single bright center */
+    /* Additive pearl overlay – linear strips at different angle, no center. */
     .event-cell.workshop::before,
     .event-cell.deadline::before,
     .event-cell.excursion::before,
@@ -648,13 +664,13 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: conic-gradient(from var(--cell-phase, 0deg) at var(--cell-cx) var(--cell-cy), rgba(255,255,255,0.12), #a0e0ff 22%, #f0d8ff 45%, #ffe8c8 68%, #c8f5e0 90%);
-      opacity: 0.4;
+      background: linear-gradient(calc(var(--cell-phase) + 85deg), rgba(255,255,255,0.06) 0%, #a0e0ff 22%, #f0d8ff 48%, #ffe8c8 72%, #c8f5e0 100%);
+      opacity: 0.38;
       mix-blend-mode: screen;
       pointer-events: none;
     }
 
-    /* Randomized iridescent shimmer – additive (screen), visible again */
+    /* Slower, noisier shimmer – multiple soft bands, drifting motion. Additive (screen). */
     .event-cell.workshop::after,
     .event-cell.deadline::after,
     .event-cell.excursion::after,
@@ -668,36 +684,56 @@
     .event-cell.lecture::after {
       content: '';
       position: absolute;
-      inset: -50%;
+      inset: -60%;
       background:
-        conic-gradient(from 0deg, rgba(255,255,255,0.6), #b8e8ff, #f8e0ff, #ffe8c8, #c8f5e0, rgba(255,255,255,0.5));
+        linear-gradient(
+          95deg,
+          transparent 0%,
+          rgba(255,255,255,0.12) 15%,
+          rgba(255,255,255,0.45) 25%,
+          rgba(255,255,255,0.15) 38%,
+          transparent 48%,
+          transparent 55%,
+          rgba(255,255,255,0.1) 68%,
+          rgba(255,255,255,0.4) 78%,
+          rgba(255,255,255,0.12) 88%,
+          transparent 100%
+        ),
+        linear-gradient(
+          160deg,
+          transparent 0%,
+          rgba(255,255,255,0.06) 35%,
+          rgba(255,255,255,0.28) 55%,
+          rgba(255,255,255,0.08) 75%,
+          transparent 100%
+        );
       opacity: 0;
       mix-blend-mode: screen;
       pointer-events: none;
-      animation: cellIridescent var(--cell-duration, 14s) ease-in-out infinite;
+      animation: cellIridescent var(--cell-duration, 22s) ease-in-out infinite;
       animation-delay: var(--cell-delay, 0s);
     }
 
     @keyframes cellIridescent {
       0%, 100% {
         opacity: 0;
-        transform: translate(0, 0) rotate(0deg) scale(1.2);
+        transform: translate(-20%, 10%) rotate(-5deg) scale(1.15);
       }
-      15% {
-        opacity: 0.48;
-        transform: translate(15%, -8%) rotate(12deg) scale(1.3);
+      20% {
+        opacity: 0.4;
+        transform: translate(10%, -5%) rotate(4deg) scale(1.2);
       }
-      35% {
+      40% {
         opacity: 0.15;
-        transform: translate(-10%, 5%) rotate(-5deg) scale(1.25);
+        transform: translate(-10%, -8%) rotate(-3deg) scale(1.18);
       }
-      55% {
-        opacity: 0.42;
-        transform: translate(-25%, -5%) rotate(8deg) scale(1.35);
+      60% {
+        opacity: 0.38;
+        transform: translate(5%, 8%) rotate(6deg) scale(1.22);
       }
-      75% {
+      80% {
         opacity: 0.12;
-        transform: translate(10%, 10%) rotate(-8deg) scale(1.2);
+        transform: translate(-5%, 5%) rotate(-2deg) scale(1.16);
       }
     }
 
@@ -1240,12 +1276,10 @@
         const contentForRow = s1 || s2 || s3;
 
         function cellIridescentVars(rowIdx, colIdx) {
-          const delay = (rowIdx * 1.7 + colIdx * 2.3) % 12;
-          const duration = 10 + (rowIdx + colIdx * 2) % 6;
+          const delay = (rowIdx * 1.7 + colIdx * 2.3) % 14;
+          const duration = 20 + (rowIdx + colIdx * 2) % 14;
           const phase = (rowIdx * 73 + colIdx * 47) % 360;
-          const cx = 25 + (rowIdx * 17 + colIdx * 23) % 50;
-          const cy = 20 + (rowIdx * 13 + colIdx * 19) % 60;
-          return `--cell-delay: ${delay.toFixed(1)}s; --cell-duration: ${duration}s; --cell-phase: ${phase}deg; --cell-cx: ${cx}%; --cell-cy: ${cy}%`;
+          return `--cell-delay: ${delay.toFixed(1)}s; --cell-duration: ${duration}s; --cell-phase: ${phase}deg`;
         }
 
         if (isFullRowEvent && contentForRow) {
