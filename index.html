@@ -642,6 +642,13 @@
       overflow: visible;
     }
 
+    /* Multiple events in one cell – stacked bubbles */
+    .event-cell-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
     /* Iridescent: linear gradients – no center, no seam. Angle per cell (--cell-phase). */
     .event-cell.workshop {
       background: linear-gradient(var(--cell-phase), rgba(34, 197, 94, 0.4) 0%, rgba(200, 255, 220, 0.35) 28%, rgba(34, 197, 94, 0.35) 50%, rgba(220, 255, 235, 0.3) 78%, rgba(34, 197, 94, 0.4) 100%);
@@ -1090,7 +1097,9 @@
         soiree: ['soirée', 'soiree', 'ludic tea'],
         gamejam: ['game jam', 'gamejam', 'mikro game'],
         lecture: ['lecture', 'embodying', 'playing with']
-      }
+      },
+      // If slot2 (13:00–15:00) contains any of these and slot3 (ab 15:00) has content, show slot2 in slot3 as well (two bubbles in 15:00 column)
+      MOVE_TO_15_00_WHEN_SLOT3_FILLED: ['Day of the Figurines', 'figurines']
     };
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -1325,9 +1334,14 @@
         tr.appendChild(dateCell);
         
         // Time slot cells – if event spans all three slots, show one cell with colspan 3
-        const s1 = (row.slot1 || '').trim();
-        const s2 = (row.slot2 || '').trim();
-        const s3 = (row.slot3 || '').trim();
+        let s1 = (row.slot1 || '').trim();
+        let s2 = (row.slot2 || '').trim();
+        let s3 = (row.slot3 || '').trim();
+        // Move "Day of the Figurines" etc. from slot2 to slot3 when slot3 has content (show both as two bubbles in 15:00 column)
+        if (s3 && CONFIG.MOVE_TO_15_00_WHEN_SLOT3_FILLED && CONFIG.MOVE_TO_15_00_WHEN_SLOT3_FILLED.some(kw => (s2 || '').toLowerCase().includes(kw.toLowerCase()))) {
+          s3 = s2 + '\n' + s3;
+          s2 = '';
+        }
         const isFullRowEvent = s1 && (
           (s1 === s2 && s2 === s3) ||
           (!s2 && !s3)
@@ -1350,16 +1364,23 @@
           td.innerHTML = `<div class="event-cell ${type} full-row-event" style="${style}" title="${titleText}"><span class="event-cell-inner">${formatContent(contentForRow)}</span></div>`;
           tr.appendChild(td);
         } else {
-          [row.slot1, row.slot2, row.slot3].forEach((content, slotIndex) => {
+          [s1, s2, s3].forEach((content, slotIndex) => {
             const td = document.createElement('td');
-            if (content) {
-              const type = detectEventType(content);
-              const filterKey = getFilterKeyForRowType(type);
-              const showEvent = activeTypeFilter === null || filterKey === activeTypeFilter;
-              if (showEvent) {
-                const titleText = escapeHtml(getPlainTextForTitle(content));
+            const parts = splitSlotIntoEvents(content);
+            if (parts.length > 0) {
+              const bubbles = parts.map(part => {
+                const type = detectEventType(part);
+                const filterKey = getFilterKeyForRowType(type);
+                const showEvent = activeTypeFilter === null || filterKey === activeTypeFilter;
+                if (!showEvent) return '';
+                const titleText = escapeHtml(getPlainTextForTitle(part));
                 const style = cellIridescentVars(index, slotIndex);
-                td.innerHTML = `<div class="event-cell ${type}" style="${style}" title="${titleText}"><span class="event-cell-inner">${formatContent(content)}</span></div>`;
+                return `<div class="event-cell ${type}" style="${style}" title="${titleText}"><span class="event-cell-inner">${formatContent(part)}</span></div>`;
+              }).filter(Boolean);
+              if (bubbles.length > 0) {
+                td.innerHTML = bubbles.length > 1
+                  ? `<div class="event-cell-group">${bubbles.join('')}</div>`
+                  : bubbles[0];
               }
             }
             tr.appendChild(td);
@@ -1382,10 +1403,16 @@
       return 'lecture';
     }
 
+    // Split one slot cell into multiple events (e.g. "Event A\nEvent B" in one cell → two bubbles)
+    function splitSlotIntoEvents(slotContent) {
+      if (!slotContent || typeof slotContent !== 'string') return [];
+      return slotContent.split(/\n/).map(s => s.trim()).filter(Boolean);
+    }
+
     function detectEventTypes(row) {
       const types = new Set();
       [row.slot1, row.slot2, row.slot3].forEach(content => {
-        if (content) types.add(detectEventType(content));
+        splitSlotIntoEvents(content).forEach(part => types.add(detectEventType(part)));
       });
       return Array.from(types);
     }
