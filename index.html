@@ -1410,10 +1410,10 @@
       return 'lecture';
     }
 
-    // Split one slot cell into multiple events (e.g. "Event A\nEvent B" in one cell → two bubbles)
+    // Split one slot cell into multiple events (newlines, or " / " separator used in Google Sheets cells).
     function splitSlotIntoEvents(slotContent) {
       if (!slotContent || typeof slotContent !== 'string') return [];
-      return slotContent.split(/\n/).map(s => s.trim()).filter(Boolean);
+      return slotContent.split(/\n|(?:\s+\/\s+)/).map(s => s.trim()).filter(Boolean);
     }
 
     function detectEventTypes(row) {
