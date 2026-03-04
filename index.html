@@ -77,6 +77,10 @@
       display: block;
       opacity: 1;
       filter: saturate(0.85) contrast(1.05);
+      /* GPU layer: avoid repaints and reduce main-thread work */
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      contain: layout paint;
     }
 
     /* ═══════════════════════════════════════════
@@ -955,9 +959,9 @@
 </head>
 <body>
 
-  <!-- Video (9:16 – scroll to see content below) -->
-  <div class="video-container">
-    <video class="video-bg" autoplay muted loop playsinline disablePictureInPicture disableRemotePlayback>
+  <!-- Video (9:16 – scroll to see content below) – metadata only until in view for performance -->
+  <div class="video-container" id="videoContainer">
+    <video class="video-bg" id="videoBg" autoplay muted loop playsinline disablePictureInPicture disableRemotePlayback preload="metadata">
       <source src="background.mp4" type="video/mp4">
     </video>
   </div>
@@ -1337,10 +1341,13 @@
         let s1 = (row.slot1 || '').trim();
         let s2 = (row.slot2 || '').trim();
         let s3 = (row.slot3 || '').trim();
-        // Move "Day of the Figurines" etc. from slot2 to slot3 when slot3 has content (show both as two bubbles in 15:00 column)
-        if (s3 && CONFIG.MOVE_TO_15_00_WHEN_SLOT3_FILLED && CONFIG.MOVE_TO_15_00_WHEN_SLOT3_FILLED.some(kw => (s2 || '').toLowerCase().includes(kw.toLowerCase()))) {
-          s3 = s2 + '\n' + s3;
-          s2 = '';
+        // Split slot2: "Day of the Figurines" etc. → move to slot3 (shared 15:00 cell); rest (e.g. "ZKF: PLAY Things") → stay in slot2 (INPUT & Open Floor)
+        if (CONFIG.MOVE_TO_15_00_WHEN_SLOT3_FILLED && s2) {
+          const parts = splitSlotIntoEvents(s2);
+          const toSlot3 = parts.filter(p => CONFIG.MOVE_TO_15_00_WHEN_SLOT3_FILLED.some(kw => p.toLowerCase().includes(kw.toLowerCase())));
+          const toSlot2 = parts.filter(p => !CONFIG.MOVE_TO_15_00_WHEN_SLOT3_FILLED.some(kw => p.toLowerCase().includes(kw.toLowerCase())));
+          s2 = toSlot2.join('\n').trim();
+          if (toSlot3.length) s3 = [...toSlot3, s3].filter(Boolean).join('\n').trim();
         }
         const isFullRowEvent = s1 && (
           (s1 === s2 && s2 === s3) ||
@@ -1493,6 +1500,36 @@
         renderSchedule();
       });
     });
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // VIDEO BACKGROUND – performance: pause when off-screen or tab hidden
+    // ═══════════════════════════════════════════════════════════════════════════
+    (function () {
+      const video = document.getElementById('videoBg');
+      const container = document.getElementById('videoContainer');
+      if (!video || !container) return;
+      let hasLoaded = false;
+      function playIfInView() {
+        if (document.hidden) return;
+        if (!hasLoaded) { video.load(); hasLoaded = true; }
+        video.play().catch(() => {});
+      }
+      function pauseVideo() {
+        video.pause();
+      }
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) playIfInView();
+          else pauseVideo();
+        });
+      }, { rootMargin: '20%', threshold: 0 });
+      observer.observe(container);
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) pauseVideo();
+        else if (container.getBoundingClientRect().bottom > 0) playIfInView();
+      });
+      if (!document.hidden) playIfInView();
+    })();
 
     // ═══════════════════════════════════════════════════════════════════════════
     // INITIALIZATION
