@@ -1193,10 +1193,9 @@
       // Only read columns A-E (indices 0-4)
       MAX_COLUMN: 4,
       
-      // Rows to EXCLUDE from public display (1-indexed, as in Google Sheets)
-      // Rows 2–4 = header-like rows (e.g. "13:00 - 15:00", ",15:00,,,")
-      // Row 24 = internal row
-      EXCLUDED_ROWS: [2, 3, 4, 24],
+      // Rows to EXCLUDE from public display (1-indexed, matching actual Google Sheets rows).
+      // Rows without a date in column A are already skipped automatically.
+      EXCLUDED_ROWS: [2, 3],
       
       // Number of header rows to skip (row 1 = "Sommer Term 2026" title)
       HEADER_ROWS: 1,
@@ -1284,26 +1283,21 @@
     // ═══════════════════════════════════════════════════════════════════════════
     
     function parseCSV(csvText) {
-      const lines = csvText.split('\n');
+      const rows = splitCSVIntoRows(csvText);
       const data = [];
-      
-      // Process each row (1-indexed for matching with Google Sheets row numbers)
-      for (let i = 0; i < lines.length; i++) {
-        const sheetRowNumber = i + 1; // Convert to 1-indexed (as shown in Google Sheets)
-        
-        // Skip header rows
+
+      for (let i = 0; i < rows.length; i++) {
+        const sheetRowNumber = i + 1;
+
         if (sheetRowNumber <= CONFIG.HEADER_ROWS) continue;
-        
-        // Skip excluded rows
         if (CONFIG.EXCLUDED_ROWS.includes(sheetRowNumber)) continue;
-        
-        const row = parseCSVLine(lines[i]);
+
+        const row = parseCSVLine(rows[i]);
         const dateValue = (row[CONFIG.COLUMNS.DATE] || '').trim();
         if (row.length === 0) continue;
         if (!dateValue) continue;
-        // Skip rows where date column is only a time (e.g. "15:00", "13:00 - 15:00")
         if (/^\s*\d{1,2}\s*:\s*\d{2}/.test(dateValue) || /^\s*\d{1,2}:\d{2}\s*$/.test(dateValue)) continue;
-        
+
         data.push({
           date: dateValue,
           day: row[CONFIG.COLUMNS.DAY]?.trim() || '',
@@ -1314,18 +1308,39 @@
           sheetRow: sheetRowNumber
         });
       }
-      
+
       return data;
+    }
+
+    function splitCSVIntoRows(text) {
+      const rows = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (ch === '"') {
+          inQuotes = !inQuotes;
+          current += ch;
+        } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+          if (ch === '\r' && text[i + 1] === '\n') i++;
+          rows.push(current);
+          current = '';
+        } else {
+          current += ch;
+        }
+      }
+      if (current) rows.push(current);
+      return rows;
     }
 
     function parseCSVLine(line) {
       const result = [];
       let current = '';
       let inQuotes = false;
-      
+
       for (let i = 0; i < line.length; i++) {
         const char = line[i];
-        
+
         if (char === '"') {
           inQuotes = !inQuotes;
         } else if (char === ',' && !inQuotes) {
@@ -1336,7 +1351,7 @@
         }
       }
       result.push(current.trim());
-      
+
       return result;
     }
 
