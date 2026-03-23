@@ -1216,15 +1216,11 @@
         lecture: ['lecture', 'embodying', 'playing with']
       },
       // If slot2 (13:00–15:00) contains any of these and slot3 (ab 15:00) has content, show slot2 in slot3 as well (two bubbles in 15:00 column)
-      MOVE_TO_15_00_WHEN_SLOT3_FILLED: ['Day of the Figurines', 'figurines'],
+      MOVE_TO_15_00_WHEN_SLOT3_FILLED: [],
 
       // Content patches: prepend or set slot content for specific dates (applied after CSV parse).
       // Each key is a date string exactly as it appears in column A.
-      // Values: { slot1/slot2/slot3: "content to prepend\nexisting" } — use 'prepend:' prefix
-      // or just a string to replace the slot entirely.
-      DATA_PATCHES: {
-        '25.03.26': { slot2_prepend: 'ZKF: PLAY Things / Day of the Figurines' }
-      }
+      DATA_PATCHES: {}
     };
 
     // ═══════════════════════════════════════════════════════════════════════════
