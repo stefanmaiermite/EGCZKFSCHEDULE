@@ -1216,7 +1216,15 @@
         lecture: ['lecture', 'embodying', 'playing with']
       },
       // If slot2 (13:00–15:00) contains any of these and slot3 (ab 15:00) has content, show slot2 in slot3 as well (two bubbles in 15:00 column)
-      MOVE_TO_15_00_WHEN_SLOT3_FILLED: ['Day of the Figurines', 'figurines']
+      MOVE_TO_15_00_WHEN_SLOT3_FILLED: ['Day of the Figurines', 'figurines'],
+
+      // Content patches: prepend or set slot content for specific dates (applied after CSV parse).
+      // Each key is a date string exactly as it appears in column A.
+      // Values: { slot1/slot2/slot3: "content to prepend\nexisting" } — use 'prepend:' prefix
+      // or just a string to replace the slot entirely.
+      DATA_PATCHES: {
+        '25.03.26': { slot2_prepend: 'ZKF: Input' }
+      }
     };
 
     // ═══════════════════════════════════════════════════════════════════════════
@@ -1260,6 +1268,7 @@
         }
         
         scheduleData = parseCSV(csvText);
+        applyDataPatches(scheduleData);
         buildMonthFilter();
         renderSchedule();
         
@@ -1353,6 +1362,21 @@
       result.push(current.trim());
 
       return result;
+    }
+
+    function applyDataPatches(data) {
+      const patches = CONFIG.DATA_PATCHES;
+      if (!patches) return;
+      for (const row of data) {
+        const p = patches[row.date];
+        if (!p) continue;
+        for (const slot of ['slot1', 'slot2', 'slot3']) {
+          if (p[slot] !== undefined) row[slot] = p[slot];
+          if (p[slot + '_prepend']) {
+            row[slot] = row[slot] ? p[slot + '_prepend'] + '\n' + row[slot] : p[slot + '_prepend'];
+          }
+        }
+      }
     }
 
     function parseDate(dateStr) {
