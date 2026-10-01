@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Experimental Game Cultures — Schedule SS2026</title>
+  <title>Experimental Game Cultures — Schedule WS2026/27</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1088,7 +1088,7 @@
         <div class="logo-section">
           <p class="subtitle">experimental game cultures</p>
           <h1><span class="logo-zkf">ZKF</span> <span class="logo-schedule">SCHEDULE</span></h1>
-          <p class="term">Summer Term 2026 — University of Applied Arts Vienna</p>
+          <p class="term">Winter Term 2026/27 — University of Applied Arts Vienna</p>
         </div>
         <div class="status-box">
           <span class="status-dot" id="statusDot"></span>
@@ -1122,14 +1122,13 @@
     <div class="schedule-wrapper">
       <div id="loadingState" class="loading-state">
         <div class="loading-spinner"></div>
-        <p>Loading schedule from Google Sheets...</p>
+        <p>Loading schedule…</p>
       </div>
       
       <div id="errorState" class="error-state" style="display: none;">
         <p>⚠️ Could not load schedule.</p>
         <p style="font-size: 0.7rem; margin-top: 0.5rem; color: var(--color-text-muted);">
-          Make sure your Google Sheet is shared: <br>
-          Share → Anyone with the link → Viewer
+          No dated rows were found in the schedule data.
         </p>
         <button onclick="loadSchedule()" style="margin-top: 1rem; padding: 0.5rem 1rem; cursor: pointer;">Retry</button>
       </div>
@@ -1138,8 +1137,8 @@
         <thead>
           <tr>
             <th class="date-col">Date</th>
-            <th class="time-col">10:00 – 12:00<br><span class="th-sub">Introduction</span></th>
-            <th class="time-col">13:00 – 15:00<br><span class="th-sub">INPUT &amp; Open Floor</span></th>
+            <th class="time-col">10:00 – 12:00<br><span class="th-sub">ZKF Input &amp; Open Floor — Topic</span></th>
+            <th class="time-col">13:00 – 15:00<br><span class="th-sub">ZKF Input &amp; Open Floor</span></th>
             <th class="time-col">ab 15:00<br><span class="th-sub">Künstlerischer Einzelunterricht / Hands-on Workshops</span></th>
           </tr>
         </thead>
@@ -1164,66 +1163,144 @@
     // CONFIGURATION - YOUR EGC SCHEDULE
     // ═══════════════════════════════════════════════════════════════════════════
     
+    // THE SCHEDULE – edit here. Copied from "Semesterplanung 2026_27 / WiSe_26_27".
+    // Same format as a Google Sheets CSV export, one line per sheet row, so you can
+    // paste a fresh export over it. Row numbers match the sheet, keeping EXCLUDED_ROWS valid.
+    // Remember to bump CONFIG.LAST_UPDATED after editing.
+    const EMBEDDED_CSV = `Winter Semester 2026,,,,,,,
+,,"10:00 - 12:00
+","13:00 - 15:00 
+","ab 15:00 
+",,,
+,,ZKF Input & Open Floor,, ,,,
+9. -13.9.26,,ARS Electronica Festival Linz,,,,,
+07.10.26,,WELCOME,Spiel & Exkursion Spielhalle Prater,Exkursion Spielhalle Prater,,,
+14.10.26,,Topic Introduction - semesterplan ! ABGABE Kriterien SLIDE ABGABE:::::: ,Intro Teaser Stefan: Knowledge Space online/ Virtual PSK reloaded...,Martina Menegon: Chimera// LUDIC METHOD workshop,18:00 Game Session Tobi,,
+21.10.26,, Topic theoretical SPIELRÄUME.... LUDOTOPIA // PAPER? Literaturreferenzen..., vibe/ node coding Alex// Individual mentoring talks,individual mentoring talks, ,,
+28.10.26,," thema: X &X , Raumtheorien der Ko-Existenz: Leibniz & Jane Jacobs",LUDIC ART JAM ... intro MJ& the team,LUDIC Art Jam,,,
+04.11.26,,"Abfahrt 10:08, Ankunft Linz 11:24 Exkursion > Linz",Exkursion > Linz . ars electronica center- water AI art. Larcher_ Carlinum. Valie Export center,"Programm: Valie Export Center, Francisco Carolinum (no applause, no life, no pain. Claudia Larcher & evtl Read the Room
+Ana María Caballero)",,,
+09.11.26, ,GRADUATION: Registration deadline for additional space requirements for SKA outside of departmental premises! ,,, ,Formular: https://base.uni-ak.ac.at/cloud/index.php/s/JpiVA5WeLqRK9sQ?dir=/Unterlagen%3A%20Raumvergabe%20SKA%20%28Abschlussarbeiten%29/english%20versions&editing=false&openfile=true,
+10.11.26,10-18,OPEN HOUSE,popUp show/game art in progress,pop UP show/ game art  in progress,,,
+11.11.26,,showing Art and activism.... spaces of SOCIAL AGENCY ::: SLIDE ABGABE:::::: ,Cath Speth/ ivan Jakaric- bio ludic art,einzelgespräche/ node coding Alex //,,,
+18.11.26, ,LUDIC matinée: Molle Industria GAME ART: PAOLO CIRIO.  Spielräume als künstlerische Praxis. ,LUDIC Art-SPACE Jam,Game Art-SPACE Jam, ,,
+20.-22.11.26,,"FROG: Playing Art, Belvedere 21",,,,,
+before 30.11.26,,GRADUATION: Registration for final exams before 30.11.2026,,,,Formular: https://www.dieangewandte.at/jart/prj3/angewandte-2016/data/uploads/Studium/Abschlussantrag_kBMD%20ausf%C3%BCllbar.pdf,
+25.11.26, ,Debriefing Belvedere Playing Art,Cath Speth/ ivan Jakaric- bio ludic art,TINA KULT Workshop,18:00 Homo Ludens Play Session,,
+02.12.26,,Midterms - SLIDE ___ short presentation,Midterms  SLIDE ___ short presentation,Midterms SLIDE ___ short presentation, ,, 
+09.12.26,,EXHIBITION SPACES: SPACE GAMES,Students' Feedback,LUDIC SOIREE: eCommemoration / memory Spaces Hamburg/ Berlin ??, ,,
+16.12.26,,VIBRANT LUDIC Spaces,Sebastian Scholz - circuit bending,Thomas/ vibe code/ circuit tune ,,,
+18.12.26,End of Season Celebration,,,,,,
+23.12.2026 - 06.01.2027,,🎄Christmas,,,,,
+Bis 4.1.27,GRADUATION: Send written Thesis to Margarete & Team,,,,???,,
+13.1.27,,INTRO: Ludic Art Space-Jam,Ludic Art Space-Jam,Ludic Art Space-Jam,,,
+20.01.27,,Exhibtion Games,support Final work/ SetUP VPSK2?,support Final work/ SetUP VPSK2?,Otto workshop?,,
+18.01. - 22.01.2027,,FINAL EXAMS,,, ,,
+27.01.27,,Semester Finals,Semester Finals,Pop Up Show? VPSK preversion,,,
+29.01.27 11 Uhr,,GRADUATION: Sponsion,,,,,
+,,,SEMESTER BREAK 30.01. - 28.02.2027,,,,
+`;
+
     const CONFIG = {
       // ═══════════════════════════════════════════════════════════════════════
-      // OPTION A: Use Google Apps Script proxy (recommended - works everywhere)
-      // Follow the setup instructions below to create your own proxy
+      // DATA SOURCE
+      // The schedule lives in EMBEDDED_CSV above. Google Sheets sync is switched
+      // off but fully intact – to bring it back, set LIVE_SYNC to true and fill in
+      // either SHEET_URL or the Apps Script proxy. EMBEDDED_CSV then serves as the
+      // fallback whenever the sheet cannot be reached.
       // ═══════════════════════════════════════════════════════════════════════
+      LIVE_SYNC: false,
+      
+      // Shown as "Last updated" while LIVE_SYNC is off – bump when EMBEDDED_CSV changes
+      LAST_UPDATED: '01.10.2026',
+      
+      // OPTION A: Google Apps Script proxy (works everywhere, incl. file://)
       USE_APPS_SCRIPT: false,  // Set to true after you deploy the Apps Script
       APPS_SCRIPT_URL: 'YOUR_APPS_SCRIPT_URL_HERE',
       
-      // ═══════════════════════════════════════════════════════════════════════
       // OPTION B: Direct Google Sheets URL (only works when hosted on a server)
-      // ═══════════════════════════════════════════════════════════════════════
-      SHEET_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8NRFpNu0u9aCAn2JILOWy2kZpw8_g3WS7f5oHcurpFc51VVecmrrOJ__h7osWpJnLN_5OG7lAPZEH/pub?gid=1724757447&single=true&output=csv',
+      // Sheet "Semesterplanung 2026_27": File → Share → Publish to web →
+      // tab WiSe_26_27 → CSV, then paste the link here.
+      SHEET_URL: '',
       
       // How often to refresh (in milliseconds)
       REFRESH_INTERVAL: 60000,  // Refresh from Google Sheets every 1 minute
       
-      // Column mapping - YOUR SHEET STRUCTURE (A-E only, public info)
-      // (0-indexed: A=0, B=1, C=2, D=3, E=4)
+      // Column mapping - YOUR SHEET STRUCTURE
+      // (0-indexed: A=0, B=1, C=2, D=3, E=4, F=5, G=6)
       COLUMNS: {
         DATE: 0,           // Column A: Date
-        DAY: 1,            // Column B: Day of week (Th+Fr, Tuesday, etc.)
+        DAY: 1,            // Column B: Day of week / opening hours – or a whole event (see parseCSV)
         SLOT_1: 2,         // Column C: 10:00-12:00
         SLOT_2: 3,         // Column D: 13:00-15:00
         SLOT_3: 4          // Column E: ab 15:00 / Workshops
       },
       
-      // Only read columns A-E (indices 0-4)
-      MAX_COLUMN: 4,
+      // Columns F and G are the team's internal notes. Two kinds of them are public:
+      // F: evening events written with a time ("18:00 Game Session Tobi") → ab-15:00 column
+      // G: official form links ("Formular: https://…") → appended to the row's event
+      EXTRA_COLUMNS: {
+        EVENING: 5,
+        LINKS: 6
+      },
+      MAX_COLUMN: 6,
       
       // Rows to EXCLUDE from public display (1-indexed, matching actual Google Sheets rows).
-      // Rows without a date in column A are already skipped automatically.
+      // Row 2 = time headers, row 3 = "ZKF Input & Open Floor" label.
       EXCLUDED_ROWS: [2, 3],
       
-      // Number of header rows to skip (row 1 = "Sommer Term 2026" title)
+      // Number of header rows to skip (row 1 = "Winter Semester 2026" title)
       HEADER_ROWS: 1,
       
+      // The term runs across a year boundary: months from September on are 2026,
+      // January/February are 2027. Used when a cell has no year at all.
+      SEMESTER: {
+        FIRST_MONTH: 8,    // September (0-indexed)
+        FIRST_YEAR: 2026,
+        SECOND_YEAR: 2027
+      },
+      
       // Keywords to detect event types (for color coding and filter toggles)
-      // Order matters: first match wins. Workshop = workshop + all hands-on variants. ZKF = all zkf. Symposium toggle = symposium + soiree.
+      // Order matters: first match wins. Game Jam is first because the jams this term
+      // are announced as "INTRO: Ludic Art Space-Jam" and would otherwise read as intros.
       TYPE_KEYWORDS: {
-        introduction: ['intro', 'introduction'],
-        zkf: ['zkf', 'kickoff', 'kick off', 'kick-off'],
-        workshop: ['workshop', 'hands-on', 'handson', 'hands on'],
-        deadline: ['deadline', 'diplome', 'registration', 'anmelde', 'meldung', 'abgabe', 'studienabschließend', 'studienabschließende', 'angewandte festival', 'semester finals', 'finals with jury', 'final exams', 'midterm', 'midterms'],
-        excursion: ['exkursion', 'excursion', 'a.maze', 'mak'],
-        symposium: ['symposium', 'ludic method'],
-        holiday: ['osterferien', 'ferien', 'holiday', 'break'],
-        exam: ['prüfung', 'exam', 'finals', 'midterm', 'studienabschließend'],
+        gamejam: ['game jam', 'gamejam', 'art jam', 'art-jam', 'space jam', 'space-jam', 'game session', 'play session', 'mikro game'],
+        introduction: ['intro', 'introduction', 'welcome'],
+        zkf: ['zkf', 'kickoff', 'kick off', 'kick-off', 'open floor', 'open house', 'pop up', 'pop-up', 'popup', 'exhibition spaces'],
+        workshop: ['workshop', 'hands-on', 'handson', 'hands on', 'mentoring', 'einzelgespräch', 'node coding', 'vibe code', 'vibe cod', 'circuit bending', 'circuit tune'],
+        deadline: ['deadline', 'graduation', 'diplome', 'registration', 'anmelde', 'meldung', 'studienabschließend', 'studienabschließende', 'semester finals', 'final exams', 'midterm', 'midterms'],
+        excursion: ['exkursion', 'excursion', 'ars electronica', 'valie export', 'carolinum', 'a.maze', 'mak'],
+        symposium: ['symposium', 'ludic method', 'matinée', 'matinee', 'frog'],
+        holiday: ['christmas', 'weihnachten', 'osterferien', 'ferien', 'holiday', 'break', 'celebration'],
+        exam: ['prüfung', 'exam', 'finals'],
         soiree: ['soirée', 'soiree', 'ludic tea'],
-        gamejam: ['game jam', 'gamejam', 'mikro game'],
         lecture: ['lecture', 'embodying', 'playing with']
       },
+      
+      // Colour for cells whose text matches no keyword, per column. The 10:00 and 13:00
+      // columns are both "ZKF Input & Open Floor", the ab-15:00 column is
+      // Künstlerischer Einzelunterricht / Hands-on.
+      SLOT_DEFAULT_TYPES: ['zkf', 'zkf', 'workshop'],
+      
       // If slot2 (13:00–15:00) contains any of these and slot3 (ab 15:00) has content, show slot2 in slot3 as well (two bubbles in 15:00 column)
       MOVE_TO_15_00_WHEN_SLOT3_FILLED: [],
 
       // Content patches: prepend or set slot content for specific dates (applied after CSV parse).
       // Each key is a date string exactly as it appears in column A.
       DATA_PATCHES: {
-        '25.03.26': {
-          slot2: 'ZKF: PLAY Things \u2215 Day of the Figurines',
-          slot3_prepend: '15.00 HANDS ON Workshop: G. Nieswohl'
+        // The line break in that cell is a wrap, not a second event.
+        '04.11.26': {
+          slot3: 'Programm: Valie Export Center, Francisco Carolinum (no applause, no life, no pain. Claudia Larcher & evtl. Read the Room, Ana María Caballero)'
+        },
+        // " / " separates two events – \u2215 keeps the title in one bubble.
+        '09.12.26': {
+          slot3: 'LUDIC SOIRÉE: eCommemoration \u2215 memory Spaces Hamburg \u2215 Berlin ??'
+        },
+        // Identical in all three columns → rendered as one full-width row.
+        '02.12.26': {
+          slot1: 'Midterms \u2013 SLIDE \u2215 short presentation',
+          slot2: 'Midterms \u2013 SLIDE \u2215 short presentation',
+          slot3: 'Midterms \u2013 SLIDE \u2215 short presentation'
         }
       }
     };
@@ -1253,22 +1330,32 @@
         errorEl.style.display = 'none';
         tableEl.style.display = 'none';
         
-        let csvText;
+        let csvText = null;
         
-        if (CONFIG.USE_APPS_SCRIPT) {
-          // Option A: Use Google Apps Script proxy (works everywhere)
-          const response = await fetch(CONFIG.APPS_SCRIPT_URL);
-          if (!response.ok) throw new Error('Failed to fetch from Apps Script');
-          csvText = await response.text();
-        } else {
-          // Option B: Direct fetch (requires hosting on a server, not file://)
-          const url = CONFIG.SHEET_URL + '&_=' + Date.now();
-          const response = await fetch(url);
-          if (!response.ok) throw new Error('Failed to fetch');
-          csvText = await response.text();
+        if (CONFIG.LIVE_SYNC) {
+          try {
+            if (CONFIG.USE_APPS_SCRIPT && !/YOUR_APPS_SCRIPT_URL/.test(CONFIG.APPS_SCRIPT_URL)) {
+              // Option A: Use Google Apps Script proxy (works everywhere)
+              const response = await fetch(CONFIG.APPS_SCRIPT_URL);
+              if (!response.ok) throw new Error('Failed to fetch from Apps Script');
+              csvText = await response.text();
+            } else if (CONFIG.SHEET_URL) {
+              // Option B: Direct fetch (requires hosting on a server, not file://)
+              const url = CONFIG.SHEET_URL + '&_=' + Date.now();
+              const response = await fetch(url);
+              if (!response.ok) throw new Error('Failed to fetch');
+              csvText = await response.text();
+            }
+          } catch (fetchError) {
+            console.warn('Sheet unavailable, falling back to the built-in schedule:', fetchError);
+          }
         }
         
+        const isLive = Boolean(csvText);
+        if (!isLive) csvText = EMBEDDED_CSV;
+        
         scheduleData = parseCSV(csvText);
+        if (scheduleData.length === 0) throw new Error('No dated rows found');
         applyDataPatches(scheduleData);
         buildMonthFilter();
         renderSchedule();
@@ -1276,8 +1363,10 @@
         loadingEl.style.display = 'none';
         tableEl.style.display = 'table';
         statusDot.classList.remove('error');
-        statusText.textContent = 'Live • Auto-updating';
-        document.getElementById('lastUpdate').textContent = new Date().toLocaleString('de-AT');
+        statusText.textContent = isLive ? 'Live • Auto-updating' : 'Winter Term 2026/27';
+        document.getElementById('lastUpdate').textContent = isLive
+          ? new Date().toLocaleString('de-AT')
+          : CONFIG.LAST_UPDATED;
         
       } catch (error) {
         console.error('Error loading schedule:', error);
@@ -1292,6 +1381,13 @@
     // CSV PARSING
     // ═══════════════════════════════════════════════════════════════════════════
     
+    // Column B holds three different things in this sheet: a weekday ("Th+Fr"),
+    // opening hours ("10-18"), or – when the rest of the row is empty – the event itself.
+    const TIME_NOTE_RE = /^[\d\s:.\-–—+]+$/;
+    const WEEKDAY_RE = /^(mo|di|mi|do|fr|sa|so|mon|tue|wed|thu|fri|sat|sun)[a-zä]*(\s*[+\-/&]\s*(mo|di|mi|do|fr|sa|so|mon|tue|wed|thu|fri|sat|sun)[a-zä]*)*$/i;
+    // A date or date range inside running text, e.g. "SEMESTER BREAK 30.01. - 28.02.2027"
+    const DATE_IN_TEXT_RE = /\d{1,2}\.\d{1,2}\.?(?:\d{2,4})?\s*[-–—]\s*\d{1,2}\.\d{1,2}\.?\d{2,4}|\d{1,2}\.\d{1,2}\.\d{2,4}/;
+
     function parseCSV(csvText) {
       const rows = splitCSVIntoRows(csvText);
       const data = [];
@@ -1303,23 +1399,75 @@
         if (CONFIG.EXCLUDED_ROWS.includes(sheetRowNumber)) continue;
 
         const row = parseCSVLine(rows[i]);
-        const dateValue = (row[CONFIG.COLUMNS.DATE] || '').trim();
         if (row.length === 0) continue;
-        if (!dateValue) continue;
+
+        let dateValue = (row[CONFIG.COLUMNS.DATE] || '').trim();
         if (/^\s*\d{1,2}\s*:\s*\d{2}/.test(dateValue) || /^\s*\d{1,2}:\d{2}\s*$/.test(dateValue)) continue;
+
+        let slot1 = row[CONFIG.COLUMNS.SLOT_1]?.trim() || '';
+        let slot2 = row[CONFIG.COLUMNS.SLOT_2]?.trim() || '';
+        let slot3 = row[CONFIG.COLUMNS.SLOT_3]?.trim() || '';
+
+        // Column B
+        let dayLabel = '';
+        let timeNote = '';
+        const colB = row[CONFIG.COLUMNS.DAY]?.trim() || '';
+        if (colB) {
+          if (TIME_NOTE_RE.test(colB)) timeNote = colB;
+          else if (WEEKDAY_RE.test(colB)) dayLabel = colB;
+          else slot1 = slot1 ? colB + '\n' + slot1 : colB;
+        }
+
+        // Rows where the date was typed into the event text instead of column A
+        if (!dateValue) {
+          const rescued = rescueUndatedRow([slot1, slot2, slot3]);
+          if (!rescued) continue;
+          dateValue = rescued.date;
+          slot1 = rescued.text;
+          slot2 = '';
+          slot3 = '';
+        }
+
+        const evening = row[CONFIG.EXTRA_COLUMNS.EVENING]?.trim() || '';
+        if (/^\d{1,2}[:.]\d{2}/.test(evening)) {
+          slot3 = slot3 ? slot3 + '\n' + evening : evening;
+        }
+
+        const link = row[CONFIG.EXTRA_COLUMNS.LINKS]?.trim() || '';
+        if (/https?:\/\//.test(link)) {
+          if (slot1) slot1 += ' ' + link;
+          else if (slot2) slot2 += ' ' + link;
+          else if (slot3) slot3 += ' ' + link;
+        }
+
+        const rawDate = parseDate(dateValue);
+
+        // Drops the link/venue collection below the schedule: text in column A, no event.
+        if (!rawDate && !slot1 && !slot2 && !slot3) continue;
 
         data.push({
           date: dateValue,
-          day: row[CONFIG.COLUMNS.DAY]?.trim() || '',
-          slot1: row[CONFIG.COLUMNS.SLOT_1]?.trim() || '',
-          slot2: row[CONFIG.COLUMNS.SLOT_2]?.trim() || '',
-          slot3: row[CONFIG.COLUMNS.SLOT_3]?.trim() || '',
-          rawDate: parseDate(dateValue),
+          day: dayLabel,
+          timeNote: timeNote,
+          slot1: slot1,
+          slot2: slot2,
+          slot3: slot3,
+          rawDate: rawDate,
           sheetRow: sheetRowNumber
         });
       }
 
       return data;
+    }
+
+    function rescueUndatedRow(slots) {
+      const text = slots.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+      if (!text) return null;
+      const match = text.match(DATE_IN_TEXT_RE);
+      if (!match) return null;
+      const label = text.replace(match[0], '').replace(/\s{2,}/g, ' ').trim();
+      if (!label) return null;
+      return { date: match[0].trim(), text: label };
     }
 
     function splitCSVIntoRows(text) {
@@ -1383,18 +1531,36 @@
     function parseDate(dateStr) {
       if (!dateStr) return null;
       
-      // Handle formats like "04.03.26", "17. - 20.03.26", "28.03 - 12.04.26"
+      // Handle formats like "07.10.26", "20.-22.11.26", "before 30.11.26", "Bis 4.1.27"
       const match = dateStr.match(/(\d{1,2})\.(\d{1,2})\.?(\d{2,4})?/);
       if (!match) return null;
       
-      let day = parseInt(match[1]);
-      let month = parseInt(match[2]) - 1;
-      let year = match[3] ? parseInt(match[3]) : new Date().getFullYear();
+      const day = parseInt(match[1], 10);
+      const month = parseInt(match[2], 10) - 1;
+      let year = match[3] ? parseInt(match[3], 10) : null;
+      
+      // In ranges like "18.01. - 22.01.2027" only the second date carries the year
+      if (year === null) {
+        const withYear = dateStr.match(/\d{1,2}\.\d{1,2}\.(\d{2,4})/);
+        if (withYear) year = parseInt(withYear[1], 10);
+      }
+      
+      // Still nothing: the term runs Sept 2026 – Feb 2027, so the month decides
+      if (year === null) {
+        year = month >= CONFIG.SEMESTER.FIRST_MONTH
+          ? CONFIG.SEMESTER.FIRST_YEAR
+          : CONFIG.SEMESTER.SECOND_YEAR;
+      }
       
       // Handle 2-digit years
       if (year < 100) year += 2000;
       
       return new Date(year, month, day);
+    }
+
+    // "20.-22.11.26" or "23.12.2026 - 06.01.2027" – a single weekday would be misleading
+    function isDateRange(dateStr) {
+      return /\d\.?\s*[-–—]\s*\d/.test(dateStr || '');
     }
 
     // Get day name in German/English
@@ -1478,16 +1644,17 @@
         if (isToday) tr.classList.add('today');
         if (isPast) tr.classList.add('past');
 
-        // Date cell - always show day name
+        // Date cell - weekday from column B if given, otherwise from the date,
+        // plus opening hours ("10-18") when the sheet notes them
         const dateCell = document.createElement('td');
-        // Use day from column B if available, otherwise calculate from date
         let dayName = row.day || '';
-        if (!dayName && row.rawDate) {
+        if (!dayName && row.rawDate && !isDateRange(row.date)) {
           dayName = getDayName(row.rawDate);
         }
+        const dayLine = [dayName, row.timeNote].filter(Boolean).join(' · ');
         dateCell.innerHTML = `
           <div class="date-cell">${escapeHtml(row.date)}</div>
-          <div class="date-day">${escapeHtml(dayName)}</div>
+          <div class="date-day">${escapeHtml(dayLine)}</div>
         `;
         tr.appendChild(dateCell);
         
@@ -1530,7 +1697,7 @@
             const parts = splitSlotIntoEvents(content);
             if (parts.length > 0) {
               const bubbles = parts.map(part => {
-                const type = detectEventType(part);
+                const type = detectEventType(part, slotIndex);
                 const filterKey = getFilterKeyForRowType(type);
                 const showEvent = activeTypeFilter === null || filterKey === activeTypeFilter;
                 if (!showEvent) return '';
@@ -1552,7 +1719,9 @@
       });
     }
 
-    function detectEventType(content) {
+    // slotIndex (0-2) decides the colour when no keyword matches – most cells this term
+    // are plain topic titles that only make sense through the column they sit in.
+    function detectEventType(content, slotIndex) {
       const lower = content.toLowerCase();
       
       for (const [type, keywords] of Object.entries(CONFIG.TYPE_KEYWORDS)) {
@@ -1561,7 +1730,7 @@
         }
       }
       
-      return 'lecture';
+      return CONFIG.SLOT_DEFAULT_TYPES[slotIndex] || 'lecture';
     }
 
     // Split one slot cell into multiple events (newlines, or " / " separator used in Google Sheets cells).
@@ -1572,8 +1741,8 @@
 
     function detectEventTypes(row) {
       const types = new Set();
-      [row.slot1, row.slot2, row.slot3].forEach(content => {
-        splitSlotIntoEvents(content).forEach(part => types.add(detectEventType(part)));
+      [row.slot1, row.slot2, row.slot3].forEach((content, slotIndex) => {
+        splitSlotIntoEvents(content).forEach(part => types.add(detectEventType(part, slotIndex)));
       });
       return Array.from(types);
     }
@@ -1604,6 +1773,10 @@
       if (!content || typeof content !== 'string') return content;
       return content
         .replace(/\s*\.\.\.\s*\.\.\.\s*/g, ' ')
+        // The sheet marks emphasis with runs of colons/dots ("SLIDE ABGABE::::::")
+        .replace(/\s*:{2,}\s*$/, '')
+        .replace(/\s*:{3,}\s*/g, ' — ')
+        .replace(/\.{4,}/g, '…')
         .replace(/\s{2,}/g, ' ')
         .replace(/^[\s,]+|[\s,]+$/g, '')
         .trim();
@@ -1722,6 +1895,8 @@
     // ═══════════════════════════════════════════════════════════════════════════
     
     loadSchedule();
+
+    if (CONFIG.LIVE_SYNC) setInterval(loadSchedule, CONFIG.REFRESH_INTERVAL);
   </script>
 
 </body>
