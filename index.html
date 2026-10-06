@@ -27,29 +27,29 @@
       --color-bg: #0a0a0f;
       --color-surface: rgba(12, 12, 18, 0.92);
       --color-surface-hover: rgba(20, 20, 30, 0.95);
-      --color-primary: #00ff88;
-      --color-secondary: #ff3366;
-      --color-accent: #7b61ff;
+      --color-primary: #3ec8e0;
+      --color-secondary: #c45c3e;
+      --color-accent: #8b6b8a;
       --color-text: #1a1a28;
       --color-text-muted: #4a4a5c;
       --color-border: rgba(0, 0, 0, 0.08);
       
-      /* Event type colors - matching your sheet */
-      --color-workshop: #22c55e;
-      --color-deadline: #ef4444;
-      --color-excursion: #06b6d4;
-      --color-symposium: #06b6d4;
-      --color-holiday: #fbbf24;
-      --color-exam: #f97316;
-      --color-festival: #ec4899;
-      --color-soiree: #a855f7;
-      --color-gamejam: #14b8a6;
-      --color-zkf: #0d9488;
-      --color-introduction: #6366f1;
+      /* Event type colors – video terrain palette */
+      --color-workshop: #6a8a6e;
+      --color-deadline: #c45c3e;
+      --color-excursion: #3a9aaa;
+      --color-symposium: #8b6b8a;
+      --color-holiday: #d4a054;
+      --color-exam: #c97a45;
+      --color-festival: #a86b72;
+      --color-soiree: #8b6b8a;
+      --color-gamejam: #2f9a96;
+      --color-zkf: #2a7a88;
+      --color-introduction: #5b7c9a;
       
       --font-display: 'Anton', 'DM Sans', sans-serif;
       --font-mono: 'Space Mono', monospace;
-      --color-subtitle: #b84d6d;
+      --color-subtitle: #a86b72;
     }
 
     * {
@@ -155,10 +155,11 @@
         conic-gradient(
           from 210deg,
           rgba(255, 255, 255, 0.95),
-          #a0f0ff,
-          #f6b4ff,
-          #ffe6a8,
-          #b9ffde,
+          #c5dde3,
+          #3ec8e0,
+          #8b6b8a,
+          #d4a054,
+          #6a8a6e,
           rgba(255, 255, 255, 0.95)
         );
       background-size: 260% 260%;
@@ -168,7 +169,7 @@
       color: transparent;
       text-shadow:
         0 0 6px rgba(255, 255, 255, 0.22),
-        0 0 12px rgba(174, 255, 244, 0.18);
+        0 0 12px rgba(62, 200, 224, 0.2);
       mix-blend-mode: screen;
       animation: iridescentShift 9s ease-in-out infinite alternate;
     }
@@ -194,10 +195,11 @@
         conic-gradient(
           from 40deg,
           rgba(255, 255, 255, 0.9),
-          #ffe6a8,
-          #f6b4ff,
-          #a0f0ff,
-          #b9ffde,
+          #d4a054,
+          #c5dde3,
+          #3ec8e0,
+          #a86b72,
+          #6a8a6e,
           rgba(255, 255, 255, 0.9)
         );
       background-size: 260% 260%;
@@ -207,7 +209,7 @@
       color: transparent;
       text-shadow:
         0 0 6px rgba(255, 255, 255, 0.2),
-        0 0 12px rgba(190, 255, 243, 0.16);
+        0 0 12px rgba(197, 221, 227, 0.22);
       mix-blend-mode: screen;
       animation: iridescentShift 11s ease-in-out infinite alternate-reverse;
     }
@@ -219,7 +221,7 @@
       }
       50% {
         background-position: 100% 65%;
-        filter: drop-shadow(0 0 6px rgba(200, 255, 245, 0.25));
+        filter: drop-shadow(0 0 6px rgba(62, 200, 224, 0.28));
       }
       100% {
         background-position: 30% 0%;
@@ -281,8 +283,8 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4); }
-      50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(62, 200, 224, 0.4); }
+      50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(62, 200, 224, 0); }
     }
 
     /* ═══════════════════════════════════════════
@@ -326,7 +328,7 @@
       border-radius: 2rem;
     }
 
-    .filter-btn:hover {
+    .filter-btn:not(.type-toggle):hover {
       border-color: var(--color-primary);
       color: var(--color-primary);
     }
@@ -405,44 +407,44 @@
 
     /* Iridescent: linear gradients – no center, no seam. Category main, pearl bands. */
     .filter-btn.type-toggle[data-type="introduction"].active {
-      background: linear-gradient(120deg, #6366f1 0%, rgba(200, 220, 255, 0.8) 28%, #6366f1 50%, rgba(245, 220, 255, 0.75) 78%, #6366f1 100%);
-      border-color: rgba(220, 218, 255, 0.9);
-      color: #fff;
+      background: linear-gradient(120deg, #5b7c9a 0%, rgba(197, 221, 227, 0.85) 28%, #5b7c9a 50%, rgba(220, 230, 240, 0.8) 78%, #5b7c9a 100%);
+      border-color: rgba(197, 221, 227, 0.9);
+      color: #243848;
     }
     .filter-btn.type-toggle[data-type="zkf"].active {
-      background: linear-gradient(120deg, #0d9488 0%, rgba(180, 255, 245, 0.85) 28%, #0d9488 50%, rgba(200, 255, 235, 0.8) 78%, #0d9488 100%);
-      border-color: rgba(176, 255, 240, 0.85);
-      color: #fff;
+      background: linear-gradient(120deg, #2a7a88 0%, rgba(197, 221, 227, 0.85) 28%, #2a7a88 50%, rgba(180, 230, 235, 0.8) 78%, #2a7a88 100%);
+      border-color: rgba(184, 238, 255, 0.85);
+      color: #0a3a3d;
     }
     .filter-btn.type-toggle[data-type="workshop"].active {
-      background: linear-gradient(120deg, #22c55e 0%, rgba(200, 255, 220, 0.85) 28%, #22c55e 50%, rgba(220, 255, 235, 0.8) 78%, #22c55e 100%);
-      border-color: rgba(200, 255, 220, 0.85);
-      color: #fff;
+      background: linear-gradient(120deg, #6a8a6e 0%, rgba(210, 230, 210, 0.85) 28%, #6a8a6e 50%, rgba(220, 235, 218, 0.8) 78%, #6a8a6e 100%);
+      border-color: rgba(200, 225, 200, 0.85);
+      color: #2f4a32;
     }
     .filter-btn.type-toggle[data-type="excursion"].active {
-      background: linear-gradient(120deg, #06b6d4 0%, rgba(200, 245, 255, 0.85) 28%, #06b6d4 50%, rgba(220, 255, 255, 0.8) 78%, #06b6d4 100%);
-      border-color: rgba(200, 255, 255, 0.85);
-      color: #fff;
+      background: linear-gradient(120deg, #3a9aaa 0%, rgba(197, 221, 227, 0.85) 28%, #3a9aaa 50%, rgba(184, 238, 255, 0.8) 78%, #3a9aaa 100%);
+      border-color: rgba(184, 238, 255, 0.85);
+      color: #0e4a52;
     }
     .filter-btn.type-toggle[data-type="symposium"].active {
-      background: linear-gradient(120deg, #a855f7 0%, rgba(235, 220, 255, 0.85) 28%, #a855f7 50%, rgba(245, 230, 255, 0.8) 78%, #a855f7 100%);
-      border-color: rgba(235, 220, 255, 0.85);
-      color: #fff;
+      background: linear-gradient(120deg, #8b6b8a 0%, rgba(230, 210, 215, 0.85) 28%, #8b6b8a 50%, rgba(235, 220, 228, 0.8) 78%, #8b6b8a 100%);
+      border-color: rgba(230, 210, 220, 0.85);
+      color: #3d2a3a;
     }
     .filter-btn.type-toggle[data-type="gamejam"].active {
-      background: linear-gradient(120deg, #14b8a6 0%, rgba(200, 255, 248, 0.85) 28%, #14b8a6 50%, rgba(220, 255, 245, 0.8) 78%, #14b8a6 100%);
-      border-color: rgba(200, 255, 248, 0.85);
-      color: #fff;
+      background: linear-gradient(120deg, #2f9a96 0%, rgba(197, 221, 227, 0.85) 28%, #2f9a96 50%, rgba(180, 235, 230, 0.8) 78%, #2f9a96 100%);
+      border-color: rgba(184, 238, 255, 0.85);
+      color: #0f4543;
     }
     .filter-btn.type-toggle[data-type="deadline"].active {
-      background: linear-gradient(120deg, #ef4444 0%, rgba(255, 220, 220, 0.8) 28%, #ef4444 50%, rgba(255, 235, 230, 0.75) 78%, #ef4444 100%);
-      border-color: rgba(255, 220, 220, 0.85);
-      color: #fff;
+      background: linear-gradient(120deg, #c45c3e 0%, rgba(255, 230, 220, 0.8) 28%, #c45c3e 50%, rgba(255, 240, 232, 0.75) 78%, #c45c3e 100%);
+      border-color: rgba(255, 220, 210, 0.85);
+      color: #6b2a1a;
     }
     .filter-btn.type-toggle[data-type="holiday"].active {
-      background: linear-gradient(120deg, #fbbf24 0%, rgba(255, 250, 220, 0.9) 28%, #fbbf24 50%, rgba(255, 245, 210, 0.85) 78%, #fbbf24 100%);
-      border-color: rgba(255, 250, 220, 0.9);
-      color: #0a0a0f;
+      background: linear-gradient(120deg, #d4a054 0%, rgba(255, 240, 216, 0.9) 28%, #d4a054 50%, rgba(255, 245, 228, 0.85) 78%, #d4a054 100%);
+      border-color: rgba(255, 240, 216, 0.9);
+      color: #5c3d12;
     }
 
     /* Frosted + additive pearl overlay. Linear strips, screen blend. */
@@ -458,7 +460,7 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: linear-gradient(60deg, rgba(255,255,255,0.28) 0%, #b8eeff 25%, #f5e0ff 50%, #fff0d8 75%, #d8f8e8 100%);
+      background: linear-gradient(60deg, rgba(255,255,255,0.28) 0%, #b8eeff 25%, #e8d4e4 50%, #fff0d8 75%, #d4e8dc 100%);
       opacity: 0.68;
       mix-blend-mode: screen;
       pointer-events: none;
@@ -467,6 +469,73 @@
       background: rgba(255, 255, 255, 0.4);
       border-color: var(--color-border);
       color: var(--color-text-muted);
+    }
+
+    .filter-btn.type-toggle:hover:not(.active) {
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), inset 0 0 50px rgba(255, 255, 255, 0.06);
+    }
+
+    .filter-btn.type-toggle[data-type="introduction"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(91, 124, 154, 0.88) 0%, rgba(197, 221, 227, 0.72) 28%, rgba(91, 124, 154, 0.88) 50%, rgba(220, 230, 240, 0.68) 78%, rgba(91, 124, 154, 0.88) 100%);
+      border-color: rgba(197, 221, 227, 0.75);
+      color: #243848;
+    }
+    .filter-btn.type-toggle[data-type="zkf"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(42, 122, 136, 0.88) 0%, rgba(197, 221, 227, 0.72) 28%, rgba(42, 122, 136, 0.88) 50%, rgba(180, 230, 235, 0.68) 78%, rgba(42, 122, 136, 0.88) 100%);
+      border-color: rgba(184, 238, 255, 0.7);
+      color: #0a3a3d;
+    }
+    .filter-btn.type-toggle[data-type="workshop"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(106, 138, 110, 0.88) 0%, rgba(210, 230, 210, 0.72) 28%, rgba(106, 138, 110, 0.88) 50%, rgba(220, 235, 218, 0.68) 78%, rgba(106, 138, 110, 0.88) 100%);
+      border-color: rgba(200, 225, 200, 0.7);
+      color: #2f4a32;
+    }
+    .filter-btn.type-toggle[data-type="excursion"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(58, 154, 170, 0.88) 0%, rgba(197, 221, 227, 0.72) 28%, rgba(58, 154, 170, 0.88) 50%, rgba(184, 238, 255, 0.68) 78%, rgba(58, 154, 170, 0.88) 100%);
+      border-color: rgba(184, 238, 255, 0.7);
+      color: #0e4a52;
+    }
+    .filter-btn.type-toggle[data-type="symposium"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(139, 107, 138, 0.88) 0%, rgba(230, 210, 215, 0.72) 28%, rgba(139, 107, 138, 0.88) 50%, rgba(235, 220, 228, 0.68) 78%, rgba(139, 107, 138, 0.88) 100%);
+      border-color: rgba(230, 210, 220, 0.7);
+      color: #3d2a3a;
+    }
+    .filter-btn.type-toggle[data-type="gamejam"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(47, 154, 150, 0.88) 0%, rgba(197, 221, 227, 0.72) 28%, rgba(47, 154, 150, 0.88) 50%, rgba(180, 235, 230, 0.68) 78%, rgba(47, 154, 150, 0.88) 100%);
+      border-color: rgba(184, 238, 255, 0.7);
+      color: #0f4543;
+    }
+    .filter-btn.type-toggle[data-type="deadline"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(196, 92, 62, 0.88) 0%, rgba(255, 230, 220, 0.68) 28%, rgba(196, 92, 62, 0.88) 50%, rgba(255, 240, 232, 0.62) 78%, rgba(196, 92, 62, 0.88) 100%);
+      border-color: rgba(255, 220, 210, 0.7);
+      color: #6b2a1a;
+    }
+    .filter-btn.type-toggle[data-type="holiday"]:hover:not(.active) {
+      background: linear-gradient(120deg, rgba(212, 160, 84, 0.88) 0%, rgba(255, 240, 216, 0.78) 28%, rgba(212, 160, 84, 0.88) 50%, rgba(255, 245, 228, 0.72) 78%, rgba(212, 160, 84, 0.88) 100%);
+      border-color: rgba(255, 240, 216, 0.75);
+      color: #5c3d12;
+    }
+
+    .filter-btn.type-toggle[data-type="introduction"]:hover:not(.active)::before,
+    .filter-btn.type-toggle[data-type="zkf"]:hover:not(.active)::before,
+    .filter-btn.type-toggle[data-type="workshop"]:hover:not(.active)::before,
+    .filter-btn.type-toggle[data-type="excursion"]:hover:not(.active)::before,
+    .filter-btn.type-toggle[data-type="symposium"]:hover:not(.active)::before,
+    .filter-btn.type-toggle[data-type="gamejam"]:hover:not(.active)::before,
+    .filter-btn.type-toggle[data-type="deadline"]:hover:not(.active)::before,
+    .filter-btn.type-toggle[data-type="holiday"]:hover:not(.active)::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(60deg, rgba(255,255,255,0.22) 0%, #b8eeff 25%, #e8d4e4 50%, #fff0d8 75%, #d4e8dc 100%);
+      opacity: 0.45;
+      mix-blend-mode: screen;
+      pointer-events: none;
     }
 
     .month-select {
@@ -506,7 +575,7 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(200, 235, 255, 0.08) 25%, rgba(245, 230, 255, 0.06) 50%, rgba(255, 245, 220, 0.07) 75%, rgba(220, 255, 240, 0.06) 100%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(62, 200, 224, 0.07) 25%, rgba(197, 221, 227, 0.08) 50%, rgba(212, 160, 84, 0.06) 75%, rgba(42, 122, 136, 0.07) 100%);
       mix-blend-mode: screen;
       pointer-events: none;
       z-index: 1;
@@ -670,41 +739,41 @@
 
     /* Iridescent: linear gradients – no center, no seam. Angle per cell (--cell-phase). */
     .event-cell.workshop {
-      background: linear-gradient(var(--cell-phase), rgba(34, 197, 94, 0.4) 0%, rgba(200, 255, 220, 0.35) 28%, rgba(34, 197, 94, 0.35) 50%, rgba(220, 255, 235, 0.3) 78%, rgba(34, 197, 94, 0.4) 100%);
-      color: #14532d;
+      background: linear-gradient(var(--cell-phase), rgba(106, 138, 110, 0.42) 0%, rgba(210, 230, 210, 0.38) 28%, rgba(106, 138, 110, 0.36) 50%, rgba(220, 235, 218, 0.32) 78%, rgba(106, 138, 110, 0.42) 100%);
+      color: #2f4a32;
     }
     .event-cell.deadline {
-      background: linear-gradient(var(--cell-phase), rgba(239, 68, 68, 0.4) 0%, rgba(255, 220, 220, 0.3) 28%, rgba(239, 68, 68, 0.35) 50%, rgba(255, 235, 230, 0.28) 78%, rgba(239, 68, 68, 0.4) 100%);
-      color: #991b1b;
+      background: linear-gradient(var(--cell-phase), rgba(196, 92, 62, 0.42) 0%, rgba(255, 230, 220, 0.35) 28%, rgba(196, 92, 62, 0.38) 50%, rgba(255, 240, 232, 0.3) 78%, rgba(196, 92, 62, 0.42) 100%);
+      color: #6b2a1a;
     }
     .event-cell.excursion {
-      background: linear-gradient(var(--cell-phase), rgba(6, 182, 212, 0.4) 0%, rgba(200, 245, 255, 0.35) 28%, rgba(6, 182, 212, 0.35) 50%, rgba(220, 255, 255, 0.3) 78%, rgba(6, 182, 212, 0.4) 100%);
-      color: #0e7490;
+      background: linear-gradient(var(--cell-phase), rgba(58, 154, 170, 0.42) 0%, rgba(197, 221, 227, 0.38) 28%, rgba(58, 154, 170, 0.36) 50%, rgba(184, 238, 255, 0.32) 78%, rgba(58, 154, 170, 0.42) 100%);
+      color: #0e4a52;
     }
     .event-cell.symposium,
     .event-cell.soiree {
-      background: linear-gradient(var(--cell-phase), rgba(168, 85, 247, 0.4) 0%, rgba(235, 220, 255, 0.35) 28%, rgba(168, 85, 247, 0.35) 50%, rgba(245, 230, 255, 0.3) 78%, rgba(168, 85, 247, 0.4) 100%);
-      color: #581c87;
+      background: linear-gradient(var(--cell-phase), rgba(139, 107, 138, 0.42) 0%, rgba(230, 210, 215, 0.38) 28%, rgba(168, 107, 114, 0.36) 50%, rgba(235, 220, 228, 0.32) 78%, rgba(139, 107, 138, 0.42) 100%);
+      color: #3d2a3a;
     }
     .event-cell.holiday {
-      background: linear-gradient(var(--cell-phase), rgba(251, 191, 36, 0.5) 0%, rgba(255, 250, 220, 0.4) 28%, rgba(251, 191, 36, 0.45) 50%, rgba(255, 245, 210, 0.38) 78%, rgba(251, 191, 36, 0.5) 100%);
-      color: #713f12;
+      background: linear-gradient(var(--cell-phase), rgba(212, 160, 84, 0.48) 0%, rgba(255, 240, 216, 0.42) 28%, rgba(212, 160, 84, 0.44) 50%, rgba(255, 245, 228, 0.38) 78%, rgba(212, 160, 84, 0.48) 100%);
+      color: #5c3d12;
     }
     .event-cell.exam {
-      background: linear-gradient(var(--cell-phase), rgba(249, 115, 22, 0.4) 0%, rgba(255, 235, 220, 0.3) 28%, rgba(249, 115, 22, 0.35) 50%, rgba(255, 240, 225, 0.28) 78%, rgba(249, 115, 22, 0.4) 100%);
-      color: #9a3412;
+      background: linear-gradient(var(--cell-phase), rgba(201, 122, 69, 0.42) 0%, rgba(255, 235, 220, 0.35) 28%, rgba(201, 122, 69, 0.38) 50%, rgba(255, 240, 225, 0.3) 78%, rgba(201, 122, 69, 0.42) 100%);
+      color: #5c2e12;
     }
     .event-cell.gamejam {
-      background: linear-gradient(var(--cell-phase), rgba(20, 184, 166, 0.4) 0%, rgba(200, 255, 248, 0.35) 28%, rgba(20, 184, 166, 0.35) 50%, rgba(220, 255, 245, 0.3) 78%, rgba(20, 184, 166, 0.4) 100%);
-      color: #0f766e;
+      background: linear-gradient(var(--cell-phase), rgba(47, 154, 150, 0.42) 0%, rgba(197, 221, 227, 0.38) 28%, rgba(47, 154, 150, 0.36) 50%, rgba(180, 235, 230, 0.32) 78%, rgba(47, 154, 150, 0.42) 100%);
+      color: #0f4543;
     }
     .event-cell.zkf {
-      background: linear-gradient(var(--cell-phase), rgba(13, 148, 136, 0.4) 0%, rgba(180, 255, 245, 0.35) 28%, rgba(13, 148, 136, 0.35) 50%, rgba(200, 255, 235, 0.3) 78%, rgba(13, 148, 136, 0.4) 100%);
-      color: #064e3b;
+      background: linear-gradient(var(--cell-phase), rgba(42, 122, 136, 0.44) 0%, rgba(197, 221, 227, 0.38) 28%, rgba(42, 122, 136, 0.38) 50%, rgba(180, 230, 235, 0.32) 78%, rgba(42, 122, 136, 0.44) 100%);
+      color: #0a3a3d;
     }
     .event-cell.introduction {
-      background: linear-gradient(var(--cell-phase), rgba(99, 102, 241, 0.35) 0%, rgba(200, 220, 255, 0.32) 28%, rgba(99, 102, 241, 0.32) 50%, rgba(245, 220, 255, 0.28) 78%, rgba(99, 102, 241, 0.35) 100%);
-      color: #3730a3;
+      background: linear-gradient(var(--cell-phase), rgba(91, 124, 154, 0.38) 0%, rgba(197, 221, 227, 0.35) 28%, rgba(91, 124, 154, 0.34) 50%, rgba(220, 230, 240, 0.3) 78%, rgba(91, 124, 154, 0.38) 100%);
+      color: #243848;
     }
     .event-cell.lecture {
       background: linear-gradient(var(--cell-phase), rgba(120, 120, 120, 0.35) 0%, rgba(240, 240, 245, 0.3) 28%, rgba(120, 120, 120, 0.3) 50%, rgba(250, 248, 252, 0.28) 78%, rgba(120, 120, 120, 0.35) 100%);
@@ -727,7 +796,7 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: linear-gradient(calc(var(--cell-phase) + 85deg), rgba(255,255,255,0.25) 0%, #b8eeff 22%, #f5e0ff 48%, #fff0d8 72%, #d8f8e8 100%);
+      background: linear-gradient(calc(var(--cell-phase) + 85deg), rgba(255,255,255,0.25) 0%, #b8eeff 22%, #e8d4e4 48%, #fff0d8 72%, #d4e8dc 100%);
       opacity: 0.7;
       mix-blend-mode: screen;
       pointer-events: none;
@@ -858,7 +927,7 @@
 
     /* Today highlight */
     .schedule-table tr.today {
-      background: rgba(0, 255, 136, 0.05);
+      background: rgba(62, 200, 224, 0.06);
     }
 
     .schedule-table tr.today td:first-child {
@@ -1273,7 +1342,7 @@ before 30.11.26,,GRADUATION: Registration for final exams before 30.11.2026,,,,F
       TYPE_KEYWORDS: {
         gamejam: ['game jam', 'gamejam', 'art jam', 'art-jam', 'space jam', 'space-jam', 'game session', 'play session', 'mikro game'],
         introduction: ['intro', 'introduction', 'welcome'],
-        zkf: ['zkf', 'kickoff', 'kick off', 'kick-off', 'open floor', 'open house', 'open studio', 'pop up', 'pop-up', 'popup', 'exhibition spaces', 'exhibition games'],
+        zkf: ['zkf', 'kickoff', 'kick off', 'kick-off', 'open floor', 'open house', 'open studio', 'pop up', 'pop-up', 'popup', 'exhibition spaces', 'exhibition games', 'deliverables teaser', 'knowledge space', 'virtual psk', 'psk reloaded'],
         workshop: ['workshop', 'hands-on', 'handson', 'hands on', 'mentoring', 'einzelgespräch', 'one-to-one', 'node coding', 'vibe code', 'vibe cod', 'circuit bending', 'circuit tune'],
         deadline: ['deadline', 'graduation', 'diplome', 'registration', 'anmelde', 'meldung', 'studienabschließend', 'studienabschließende', 'semester finals', 'final exams', 'midterm', 'midterms'],
         excursion: ['exkursion', 'excursion', 'ars electronica', 'valie export', 'carolinum', 'a.maze', 'mak'],
@@ -1295,6 +1364,13 @@ before 30.11.26,,GRADUATION: Registration for final exams before 30.11.2026,,,,F
       // Content patches: prepend or set slot content for specific dates (applied after CSV parse).
       // Each key is a date string exactly as it appears in column A.
       DATA_PATCHES: {
+        '07.10.26': {
+          slot3: 'Game & Excursion: Spielhalle Prater\noptional: 16.30 Uhr · Kuratorenführung: ARCHITEKTURBAUKÄSTEN 1890–1990 · mit Oliver Elser, MAK – Museum für angewandte Kunst'
+        },
+        '21.10.26': {
+          slot1: 'SPIELRÄUME….Playing together in LUDOTOPIA and Literature References. 1st reading: from architectonics of gamespaces: Augmented Play, Art, and Space · The Cognitive Coupling of Avant-Garde Games with Unexpected Mental Spaces',
+          slot2: 'OPEN FLOOR\nvibe/ node coding Alex'
+        },
         '17.11.26': {
           slot1: '18:00 LUDIC Soirée: GAME ART: PAOLO CIRIO. activism in public spaces as artistic practice',
           slot2: '',
@@ -1729,7 +1805,8 @@ before 30.11.26,,GRADUATION: Registration for final exams before 30.11.2026,,,,F
     // are plain topic titles that only make sense through the column they sit in.
     function detectEventType(content, slotIndex) {
       const lower = content.toLowerCase();
-      
+      if (/workshop/i.test(content)) return 'workshop';
+
       for (const [type, keywords] of Object.entries(CONFIG.TYPE_KEYWORDS)) {
         if (keywords.some(kw => lower.includes(kw))) {
           return type;
