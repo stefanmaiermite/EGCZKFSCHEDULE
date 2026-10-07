@@ -14,6 +14,7 @@
       var p = new URLSearchParams(location.search).get('perf');
       if (p === '1' || p === 'lite') { h.classList.add('perf-mode'); return; }
       if (p === 'mid') { h.classList.add('perf-mid'); return; }
+      if (window.matchMedia('(max-width: 900px)').matches) h.classList.add('perf-mid');
       var mem = navigator.deviceMemory || 99;
       var cores = navigator.hardwareConcurrency || 99;
       var mobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
@@ -999,15 +1000,26 @@
     /* ═══════════════════════════════════════════
        PERFORMANCE – three tiers, auto-selected
        Tier 1 "full"   : all effects (default)
-       Tier 2 "perf-mid": drop per-cell blur, reduce table blur – keeps all visuals & shimmer
+       Tier 2 "perf-mid": drop per-cell blur, reduce table blur – keeps gradients; no cell shimmer (GPU)
        Tier 3 "perf-mode / prefers-reduced-motion": no blur, no shimmer animations
        ═══════════════════════════════════════════ */
 
     /* ── Mid tier ───────────────────────────────
        Removes per-cell backdrop-filter (the single biggest GPU cost – 30+ blur layers).
        Keeps table-level blur so frosted look is preserved; reduces its radius.
-       Keeps all gradients, colors, shimmer animations, blend modes.
+       Keeps gradients/colors/blend modes; drops ::after shimmer (same as lite tier).
        ──────────────────────────────────────────── */
+    html.perf-mid .event-cell.workshop::after,
+    html.perf-mid .event-cell.deadline::after,
+    html.perf-mid .event-cell.excursion::after,
+    html.perf-mid .event-cell.symposium::after,
+    html.perf-mid .event-cell.soiree::after,
+    html.perf-mid .event-cell.holiday::after,
+    html.perf-mid .event-cell.exam::after,
+    html.perf-mid .event-cell.gamejam::after,
+    html.perf-mid .event-cell.zkf::after,
+    html.perf-mid .event-cell.introduction::after,
+    html.perf-mid .event-cell.lecture::after { animation: none; opacity: 0; }
     html.perf-mid .schedule-table { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
     html.perf-mid .schedule-table th { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
     html.perf-mid .filter-btn.type-toggle.active { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
@@ -1145,7 +1157,7 @@
 
   <!-- Video (9:16 – scroll to see content below) – metadata only until in view for performance -->
   <div class="video-container" id="videoContainer">
-    <video class="video-bg" id="videoBg" autoplay muted loop playsinline disablePictureInPicture disableRemotePlayback preload="metadata">
+    <video class="video-bg" id="videoBg" poster="poster.jpg" autoplay muted loop playsinline disablePictureInPicture disableRemotePlayback preload="metadata">
       <source src="background.mp4" type="video/mp4">
     </video>
   </div>
@@ -1921,15 +1933,28 @@ before 30.11.26,,GRADUATION: Registration for final exams before 30.11.2026,,,,F
       const container = document.getElementById('videoContainer');
       if (!video || !container) return;
       const h = document.documentElement;
+      const posterUrl = 'poster.jpg';
       let hasLoaded = false;
-      function isLowPower() {
+      function usePosterOnly() {
         return h.classList.contains('perf-mode') || h.classList.contains('perf-mid')
-               || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+               || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+               || window.matchMedia('(max-width: 900px)').matches
+               || window.matchMedia('(pointer: coarse)').matches;
+      }
+      function applyPosterBackground() {
+        container.style.background = 'url(' + posterUrl + ') center/cover no-repeat';
+        video.removeAttribute('src');
+        video.querySelectorAll('source').forEach(function (s) { s.remove(); });
+        video.preload = 'none';
+        video.style.display = 'none';
+      }
+      if (usePosterOnly()) {
+        applyPosterBackground();
+        return;
       }
       function playIfInView() {
         if (document.hidden) return;
         if (!hasLoaded) { video.load(); hasLoaded = true; }
-        if (isLowPower()) video.playbackRate = 0.85;
         video.play().catch(function(){});
       }
       function pauseVideo() { video.pause(); }
@@ -1966,7 +1991,9 @@ before 30.11.26,,GRADUATION: Registration for final exams before 30.11.2026,,,,F
           } else if (fps < 40 && !h.classList.contains('perf-mid')) {
             h.classList.add('perf-mid');
           } else if (fps >= 50) {
-            h.classList.remove('perf-mid');
+            if (!window.matchMedia('(max-width: 900px)').matches) {
+              h.classList.remove('perf-mid');
+            }
           }
         }
         requestAnimationFrame(tick);
